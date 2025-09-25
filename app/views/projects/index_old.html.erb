@@ -1,0 +1,116 @@
+<!-- Projects Index Page -->
+<section class="py-20 bg-white">
+  <div class="container-11b">
+    <!-- Header -->
+    <div class="text-center mb-16">
+      <h1 class="text-5xl lg:text-6xl font-bold text-dark-olive mb-6">
+        Things We Built & Actually Use
+      </h1>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+        Here's our collection of products that solve actual problems. 
+        No "disruption" involved, just useful software that works.
+      </p>
+    </div>
+
+    <!-- Tech Filter -->
+    <% if @tech_stacks.present? %>
+      <div class="mb-12 text-center">
+        <h3 class="text-lg font-semibold text-dark-olive mb-4">Filter by Technology:</h3>
+        <div class="flex flex-wrap justify-center gap-3">
+          <%= link_to "All Products", projects_path, 
+                      class: "px-4 py-2 #{params[:tech_filter].blank? ? 'bg-olive text-white' : 'bg-gray-200 text-gray-700'} rounded-full text-sm font-medium hover:bg-olive hover:text-white transition-colors" %>
+          
+          <% @tech_stacks.each do |tech| %>
+            <%= link_to tech, projects_path(tech_filter: tech), 
+                        class: "px-4 py-2 #{params[:tech_filter] == tech ? 'bg-olive text-white' : 'bg-gray-200 text-gray-700'} rounded-full text-sm font-medium hover:bg-olive hover:text-white transition-colors" %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <!-- Projects Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <% @projects.each do |project| %>
+        <article class="card-military group">
+          <!-- Project Image -->
+          <div class="aspect-video bg-tan mb-6 rounded-lg flex items-center justify-center text-dark-olive overflow-hidden">
+            <% if project.featured_image.attached? %>
+              <%= image_tag project.featured_image, alt: project.title, class: "w-full h-full object-cover rounded-lg group-hover:scale-105 transition-transform duration-300" %>
+            <% else %>
+              <div class="text-center">
+                <div class="text-4xl font-bold mb-2"><%= project.title.first(2).upcase %></div>
+                <div class="text-sm opacity-75">Project Image</div>
+              </div>
+            <% end %>
+          </div>
+          
+          <!-- Project Info -->
+          <div class="space-y-4">
+            <h2 class="text-2xl font-bold text-dark-olive group-hover:text-olive transition-colors">
+              <%= link_to project.title, project_path(project) %>
+            </h2>
+            
+            <p class="text-gray-600 line-clamp-3">
+              <%= project.description %>
+            </p>
+            
+            <!-- Tech Stack -->
+            <div class="flex flex-wrap gap-2">
+              <% project.tech_stack.split(',').each do |tech| %>
+                <span class="px-3 py-1 bg-light-tan text-dark-olive text-sm rounded-full">
+                  <%= tech.strip %>
+                </span>
+              <% end %>
+            </div>
+            
+            <!-- Client Outcome Preview -->
+            <% if project.client_outcome.present? %>
+              <blockquote class="border-l-4 border-tan pl-4 text-gray-700 italic text-sm">
+                <%= truncate(project.client_outcome, length: 100) %>
+              </blockquote>
+            <% end %>
+            
+            <!-- Action Links -->
+            <div class="flex justify-between items-center pt-4 border-t border-gray-200">
+              <%= link_to "View Details", project_path(project), 
+                          class: "text-muted-blue hover:text-olive font-semibold transition-colors" %>
+              
+              <% if project.featured? %>
+                <span class="dog-tag text-xs px-2 py-1">Featured</span>
+              <% end %>
+            </div>
+          </div>
+        </article>
+      <% end %>
+    </div>
+
+    <!-- Empty State -->
+    <% if @projects.empty? %>
+      <div class="text-center py-20">
+        <div class="text-6xl mb-4">🎯</div>
+        <h3 class="text-2xl font-bold text-dark-olive mb-4">No Products Found</h3>
+        <p class="text-gray-600 mb-6">
+          <% if params[:tech_filter].present? %>
+            No products found with "<%= params[:tech_filter] %>" technology.
+          <% else %>
+            We're still building our product suite. Check back soon!
+          <% end %>
+        </p>
+        <%= link_to "View All Products", projects_path, class: "btn-military" %>
+      </div>
+    <% end %>
+
+    <!-- Call to Action -->
+    <div class="text-center mt-20 p-12 bg-light-tan rounded-lg">
+      <h3 class="text-3xl font-bold text-dark-olive mb-4">
+        Like What You See?
+      </h3>
+      <p class="text-xl text-gray-700 mb-6">
+        Great! These products are all live and serving real users. 
+        No vaporware, no "coming soon" nonsense.
+      </p>
+      <%= link_to "Get In Touch", contact_path, class: "btn-military mr-4" %>
+      <%= link_to "Learn About Us", about_path, class: "btn-hippie" %>
+    </div>
+  </div>
+</section>

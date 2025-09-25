@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  description: MyText
+  tech_stack: MyString
+  client_outcome: MyText
+  featured: false
+
+two:
+  title: MyString
+  description: MyText
+  tech_stack: MyString
+  client_outcome: MyText
+  featured: false

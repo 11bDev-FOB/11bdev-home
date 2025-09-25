@@ -1,0 +1,218 @@
+<!-- Hero Section -->
+<section class="bg-vintage-cream min-h-screen flex items-center relative overflow-hidden">
+  <div class="absolute inset-0 bg-vintage-photo"></div>
+  
+  <div class="container-11b relative z-10">
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div class="text-readable">
+        <h1 class="text-5xl lg:text-7xl font-bold mb-6 leading-tight text-dark-olive">
+          Adapt and
+          <span class="text-olive">Overcome</span>
+        </h1>
+        
+        <p class="text-xl lg:text-2xl mb-8 text-medium-gray">
+          We left the Army but kept the mission-first mentality. Now we build 
+          <span class="text-olive font-semibold">simple clean tools that simplify our missions</span> 
+          (unlike most of Silicon Valley).
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-4">
+          <%= link_to "Check Out Our Products", projects_path, class: "btn-military text-center" %>
+          <%= link_to "Our Unconventional Story", about_path, class: "btn-hippie text-center" %>
+        </div>
+        
+        <!-- Value Proposition -->
+        <div class="mt-12 p-6 bg-white bg-opacity-70 rounded-lg border-l-4 border-olive shadow-sm">
+          <p class="text-medium-gray mb-3">
+            <strong class="text-dark-olive">Why We're Different:</strong> 
+            We build products we actually wanted for ourselves. No fluff, no BS, no "revolutionary" to-do lists. 
+            Just solid Rails applications that get the job done.
+          </p>
+        </div>
+      </div>
+      
+      <div class="relative">
+        <!-- Veteran Hippie Van Image -->
+        <div class="relative image-container">
+          <%= image_tag "veteran-hippie-van.png", 
+              alt: "Veteran developer working from hippie van - the perfect blend of military precision and creative freedom", 
+              class: "w-full h-auto rounded-lg shadow-xl image-blend",
+              loading: "lazy" %>
+          
+          <!-- Overlay text -->
+          <div class="absolute bottom-4 left-4 right-4 bg-black bg-opacity-80 text-white rounded-lg p-4 shadow-lg border border-white border-opacity-20">
+            <div class="text-sm font-bold mb-2 text-orange-300">🚐 Field Office Status:</div>
+            <div class="text-sm leading-relaxed">Currently deployed • Coding with purpose • Peace, love, and clean commits</div>
+          </div>
+        </div>
+        
+        <!-- Floating decorative elements -->
+        <div class="absolute -top-4 -right-4 w-16 h-16 bg-tie-dye rounded-full opacity-50 animate-pulse"></div>
+        <div class="absolute -bottom-6 -left-6 w-12 h-12 bg-olive rounded-full opacity-40 animate-bounce"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Products Section -->
+<% if @featured_projects.present? %>
+<section class="py-20 bg-white">
+  <div class="container-11b">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl lg:text-5xl font-bold text-dark-olive mb-6">
+        From The Skunk Works
+      </h2>
+      <p class="text-xl text-medium-gray max-w-3xl mx-auto">
+        Three products currently in development. Simple tools for real problems. 
+        No AI, no blockchain, no "disruption" - just useful software.
+      </p>
+    </div>
+    
+    <div class="grid md:grid-cols-3 gap-8">
+      <% @featured_projects.each do |project| %>
+        <div class="card-military group bg-white">
+          <div class="aspect-video bg-light-tan mb-4 rounded-lg flex items-center justify-center text-dark-olive">
+            <% if project.featured_image.attached? %>
+              <%= image_tag project.featured_image, alt: project.title, class: "w-full h-full object-cover rounded-lg" %>
+            <% else %>
+              <span class="text-2xl font-bold"><%= project.title.first(2).upcase %></span>
+            <% end %>
+          </div>
+          
+          <h3 class="text-xl font-bold text-dark-olive mb-3 group-hover:text-olive transition-colors">
+            <%= project.title %>
+          </h3>
+          
+          <p class="text-medium-gray mb-4 line-clamp-3">
+            <%= truncate(project.description, length: 120) %>
+          </p>
+          
+          <div class="flex flex-wrap gap-2 mb-4">
+            <% project.tech_stack.split(',').first(3).each do |tech| %>
+              <span class="px-3 py-1 bg-light-tan text-dark-olive text-sm rounded-full border">
+                <%= tech.strip %>
+              </span>
+            <% end %>
+          </div>
+          
+          <%= link_to "Learn More", project_path(project), 
+                      class: "text-muted-blue hover:text-olive font-semibold transition-colors" %>
+        </div>
+      <% end %>
+    </div>
+    
+    <div class="text-center mt-12">
+      <%= link_to "View All Products", projects_path, class: "btn-military" %>
+    </div>
+  </div>
+</section>
+<% end %>
+
+<!-- What We Do -->
+<section class="py-20 bg-light-tan">
+  <div class="container-11b">
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <h2 class="text-4xl lg:text-5xl font-bold text-dark-olive mb-6">
+          Product-First Approach
+        </h2>
+        <p class="text-xl text-medium-gray mb-8">
+          We're not consultants or freelancers. We're product builders who create, 
+          deploy, and maintain our own digital products and SaaS applications. 
+          Every solution we build becomes part of our growing ecosystem.
+        </p>
+        
+        <div class="space-y-4">
+          <div class="flex items-start space-x-4">
+            <div class="w-3 h-3 bg-olive rounded-full mt-2 flex-shrink-0"></div>
+            <div>
+              <h3 class="font-semibold text-dark-olive">SaaS Products</h3>
+              <p class="text-medium-gray">Subscription-based applications we own and operate</p>
+            </div>
+          </div>
+          
+          <div class="flex items-start space-x-4">
+            <div class="w-3 h-3 bg-olive rounded-full mt-2 flex-shrink-0"></div>
+            <div>
+              <h3 class="font-semibold text-dark-olive">API Services</h3>
+              <p class="text-medium-gray">Developer tools and integrations available as services</p>
+            </div>
+          </div>
+          
+          <div class="flex items-start space-x-4">
+            <div class="w-3 h-3 bg-olive rounded-full mt-2 flex-shrink-0"></div>
+            <div>
+              <h3 class="font-semibold text-dark-olive">Digital Tools</h3>
+              <p class="text-medium-gray">Utility applications that solve specific problems</p>
+            </div>
+          </div>
+        </div>
+        
+        <%= link_to "Learn More About Us", about_path, class: "btn-hippie mt-8 inline-block" %>
+      </div>
+      
+      <div class="relative">
+        <!-- Code terminal illustration with better contrast -->
+        <div class="bg-dark-olive text-tan p-6 rounded-lg shadow-lg font-mono text-sm">
+          <div class="flex items-center space-x-2 mb-4 border-b border-tan border-opacity-50 pb-2">
+            <div class="w-3 h-3 bg-red-400 rounded-full"></div>
+            <div class="w-3 h-3 bg-yellow-400 rounded-full"></div>
+            <div class="w-3 h-3 bg-green-400 rounded-full"></div>
+            <span class="text-xs text-tan opacity-75 ml-4">terminal - 11b_dev</span>
+          </div>
+          
+          <div class="space-y-2">
+            <div class="flex">
+              <span class="text-green-400">$</span>
+              <span class="ml-2 text-white">rails new our_saas_product</span>
+            </div>
+            <div class="text-tan opacity-75">Creating new product...</div>
+            <div class="flex">
+              <span class="text-green-400">$</span>
+              <span class="ml-2 text-white">git commit -m "Launch day 🚀"</span>
+            </div>
+            <div class="text-tan opacity-75">Product deployed successfully!</div>
+            <div class="flex">
+              <span class="text-green-400">$</span>
+              <span class="ml-2 animate-pulse text-white">|</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Floating decorative elements -->
+        <div class="absolute -top-2 -right-2 dog-tag text-xs px-2 py-1 bg-white text-dark-olive border">Rails 7</div>
+        <div class="absolute -bottom-4 -left-4 w-8 h-8 bg-tie-dye rounded-full opacity-50"></div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Call to Action -->
+<section class="py-20 bg-dark-olive relative overflow-hidden">
+  <div class="absolute inset-0 bg-tie-dye opacity-20"></div>
+  
+  <div class="container-11b relative z-10 text-center">
+    <h2 class="text-4xl lg:text-5xl font-bold text-white mb-6">
+      Still Here? Cool.
+    </h2>
+    
+    <p class="text-xl text-gray-200 max-w-2xl mx-auto mb-8">
+      If you've made it this far, you're probably not looking for another "disruptive" 
+      social media platform. Good. We build tools that actually work—whether from 
+      a traditional office or the back of a van.
+    </p>
+    
+    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+      <%= link_to "Let's Talk Shop", contact_path, class: "btn-military" %>
+      <span class="text-gray-300">or</span>
+      <%= link_to "Check Our Products", projects_path, class: "btn-hippie" %>
+    </div>
+    
+    <div class="mt-12 text-gray-300">
+      <p class="text-sm">
+        📧 <a href="mailto:info@11b.dev" class="text-tan hover:underline">info@11b.dev</a> | 
+        Built with Rails 7 & ❤️ (and lots of coffee) | 
+        <span class="steal-your-face inline-block"></span>
+      </p>
+    </div>
+  </div>
+</section>

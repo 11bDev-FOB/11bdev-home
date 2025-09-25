@@ -1,0 +1,89 @@
+<!-- Services Page -->
+<section class="py-20 bg-white">
+  <div class="container-11b">
+    <!-- Header -->
+    <div class="text-center mb-16">
+      <h1 class="text-5xl lg:text-6xl font-bold text-dark-olive mb-6">
+        Products & Services
+      </h1>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+        We build things that work and charge reasonable prices for them. 
+        Revolutionary, we know.
+      </p>
+    </div>
+
+    <!-- Services Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+      <% @services.each do |service| %>
+        <div class="card-military <%= 'ring-2 ring-olive' if service.featured %>">
+          <!-- Icon -->
+          <div class="text-4xl mb-4"><%= service.icon %></div>
+          
+          <!-- Service Info -->
+          <h3 class="text-2xl font-bold text-dark-olive mb-4"><%= service.title %></h3>
+          <p class="text-gray-600 mb-6 leading-relaxed"><%= service.description %></p>
+          
+          <!-- Pricing -->
+          <div class="mt-auto">
+            <div class="text-lg font-semibold text-olive mb-4">
+              <%= service.price_range %>
+            </div>
+            <% if service.featured %>
+              <span class="inline-block bg-olive text-white px-3 py-1 rounded-full text-sm font-medium">
+                Popular
+              </span>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Process Section -->
+    <div class="bg-light-tan rounded-lg p-12 mb-16">
+      <h2 class="text-4xl font-bold text-dark-olive text-center mb-12">
+        Our Product Development Process
+      </h2>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="text-5xl mb-4">🎯</div>
+          <h3 class="text-xl font-bold text-dark-olive mb-4">Identify & Validate</h3>
+          <p class="text-gray-600">
+            We start by identifying real problems in communities we understand - veterans, developers, music lovers. Every product begins with genuine need validation.
+          </p>
+        </div>
+        
+        <div class="text-center">
+          <div class="text-5xl mb-4">🛠️</div>
+          <h3 class="text-xl font-bold text-dark-olive mb-4">Build & Test</h3>
+          <p class="text-gray-600">
+            Using battle-tested Rails practices, we build MVPs fast and iterate based on real user feedback. No feature bloat - just focused solutions that work.
+          </p>
+        </div>
+        
+        <div class="text-center">
+          <div class="text-5xl mb-4">🚀</div>
+          <h3 class="text-xl font-bold text-dark-olive mb-4">Deploy & Scale</h3>
+          <p class="text-gray-600">
+            We deploy our products with military-grade reliability and scale them thoughtfully as communities grow. Every product is built to last and serve.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="text-center bg-dark-olive text-white p-12 rounded-lg">
+      <h3 class="text-3xl font-bold mb-4">
+        Questions? Ideas? Problems to Solve?
+      </h3>
+      <p class="text-xl mb-8 opacity-90">
+        Skip the small talk and tell us what you're trying to build. We'll tell you if we can help 
+        (and if we can't, we'll probably know who can).
+      </p>
+      <div class="space-x-4">
+        <%= link_to "Check Out Our Products", projects_path, class: "btn-hippie" %>
+        <%= link_to "Start a Conversation", contact_path, class: "bg-white text-dark-olive px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-block" %>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,478 @@
+@import "tailwindcss";
+
+/* 11b Dev Custom Styles - SEALs meets Grateful Dead vibe - Improved Readability */
+
+:root {
+  --olive-green: #4B5E40;
+  --desert-tan: #D2B48C;
+  --muted-blue: #4682B4;
+  --tie-dye-purple: #8A4FFF;
+  --tie-dye-orange: #FF6B35;
+  --dark-olive: #3A4A32;
+  --light-tan: #F5F2E8;
+  --cream: #FEFCF6;
+  --vintage-cream: #F5F0E8;
+  --warm-beige: #F2EDE4;
+  --light-text: #2D3748;
+  --medium-gray: #4A5568;
+  
+  /* Dark mode variables */
+  --dark-bg: #1a1a1a;
+  --dark-surface: #2d2d2d;
+  --dark-card: #3a3a3a;
+  --dark-text: #e2e8f0;
+  --dark-muted: #a0aec0;
+  --dark-olive-light: #6b7c5a;
+  --dark-accent: #f7d794;
+}
+
+/* Custom background gradients - More subtle for readability */
+.bg-tie-dye {
+  background: linear-gradient(45deg, rgba(138, 79, 255, 0.1), rgba(255, 107, 53, 0.1), rgba(70, 130, 180, 0.1));
+  background-size: 400% 400%;
+  animation: gradient 20s ease infinite;
+}
+
+.bg-subtle-tie-dye {
+  background: linear-gradient(135deg, rgba(138, 79, 255, 0.05), rgba(255, 107, 53, 0.05));
+}
+
+/* Vintage photo-matching background */
+.bg-vintage-photo {
+  background: linear-gradient(135deg, 
+    #F5F0E8 0%, 
+    #F2EDE4 25%, 
+    #F8F3EB 50%, 
+    #F0EAE1 75%, 
+    #F5F0E8 100%);
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Typography */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Roboto+Slab:wght@400;600;700&display=swap');
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  color: var(--light-text);
+  background-color: var(--cream);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark mode styles */
+body.dark-mode,
+html.dark-mode body {
+  background-color: var(--dark-bg);
+  color: var(--dark-text);
+}
+
+body.dark-mode .bg-white,
+html.dark-mode .bg-white {
+  background-color: var(--dark-surface) !important;
+}
+
+body.dark-mode .bg-cream,
+body.dark-mode .bg-vintage-cream,
+body.dark-mode .bg-light-tan,
+html.dark-mode .bg-cream,
+html.dark-mode .bg-vintage-cream,
+html.dark-mode .bg-light-tan {
+  background-color: var(--dark-bg) !important;
+}
+
+body.dark-mode .text-dark-olive,
+html.dark-mode .text-dark-olive {
+  color: var(--dark-olive-light) !important;
+}
+
+body.dark-mode .text-medium-gray,
+html.dark-mode .text-medium-gray {
+  color: var(--dark-muted) !important;
+}
+
+body.dark-mode .text-gray-600,
+body.dark-mode .text-gray-700,
+html.dark-mode .text-gray-600,
+html.dark-mode .text-gray-700 {
+  color: var(--dark-muted) !important;
+}
+
+body.dark-mode .card-military,
+html.dark-mode .card-military {
+  background-color: var(--dark-card) !important;
+  border-color: var(--dark-olive-light) !important;
+}
+
+body.dark-mode .nav-tactical,
+html.dark-mode .nav-tactical {
+  background-color: rgba(26, 26, 26, 0.95) !important;
+}
+
+/* Dark mode vintage photo background */
+body.dark-mode .bg-vintage-photo,
+html.dark-mode .bg-vintage-photo {
+  background: linear-gradient(135deg, 
+    var(--dark-bg) 0%, 
+    var(--dark-surface) 25%, 
+    var(--dark-card) 50%, 
+    var(--dark-surface) 75%, 
+    var(--dark-bg) 100%) !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Roboto Slab', serif;
+  font-weight: 600;
+  color: var(--dark-olive);
+}
+
+.text-olive { color: var(--olive-green); }
+.text-tan { color: var(--desert-tan); }
+.text-muted-blue { color: var(--muted-blue); }
+.text-dark-olive { color: var(--dark-olive); }
+.text-readable { color: var(--dark-text); }
+.text-medium-gray { color: var(--medium-gray); }
+
+.bg-olive { background-color: var(--olive-green); }
+.bg-tan { background-color: var(--desert-tan); }
+.bg-muted-blue { background-color: var(--muted-blue); }
+.bg-dark-olive { background-color: var(--dark-olive); }
+.bg-light-tan { background-color: var(--light-tan); }
+.bg-cream { background-color: var(--cream); }
+.bg-vintage-cream { background-color: var(--vintage-cream); }
+.bg-warm-beige { background-color: var(--warm-beige); }
+
+.border-olive { border-color: var(--olive-green); }
+.border-tan { border-color: var(--desert-tan); }
+
+/* Military/Rugged styling */
+.polaroid-frame {
+  background: white;
+  padding: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: 3px solid var(--olive-green);
+  transform: rotate(-1deg);
+  transition: transform 0.3s ease;
+}
+
+.polaroid-frame:hover {
+  transform: rotate(0deg) scale(1.02);
+}
+
+.dog-tag {
+  background: linear-gradient(145deg, #c0c0c0, #e0e0e0);
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  box-shadow: inset 2px 2px 4px rgba(0,0,0,0.1), inset -2px -2px 4px rgba(255,255,255,0.5);
+}
+
+/* Enhanced 11b Dev logo styling */
+.logo-11b {
+  background: linear-gradient(135deg, 
+    var(--olive-green) 0%, 
+    var(--dark-olive) 50%, 
+    var(--olive-green) 100%);
+  color: white;
+  padding: 0.75rem 1rem;
+  border-radius: 25px;
+  font-weight: bold;
+  font-size: 1.25rem;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  box-shadow: 
+    0 4px 8px rgba(0,0,0,0.2),
+    inset 0 1px 2px rgba(255,255,255,0.1);
+  border: 2px solid var(--desert-tan);
+  position: relative;
+  overflow: hidden;
+}
+
+.logo-11b::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, 
+    var(--tie-dye-orange), 
+    var(--tie-dye-purple), 
+    var(--desert-tan));
+  border-radius: 25px;
+  z-index: -1;
+  opacity: 0.3;
+}
+
+.logo-dev {
+  color: var(--desert-tan);
+  font-weight: bold;
+  font-size: 1.5rem;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+  font-family: 'Roboto Slab', serif;
+  letter-spacing: 0.05em;
+}
+
+/* Dark mode toggle button */
+.dark-mode-toggle {
+  background: var(--olive-green);
+  border: 2px solid var(--desert-tan);
+  border-radius: 20px;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+
+.dark-mode-toggle:hover {
+  background: var(--dark-olive);
+  transform: scale(1.05);
+}
+
+.dark-mode-toggle svg {
+  width: 20px;
+  height: 20px;
+  color: var(--desert-tan);
+  transition: transform 0.3s ease;
+}
+
+body.dark-mode .dark-mode-toggle,
+html.dark-mode .dark-mode-toggle {
+  background: var(--dark-olive-light);
+  border-color: var(--dark-accent);
+}
+
+body.dark-mode .dark-mode-toggle svg,
+html.dark-mode .dark-mode-toggle svg {
+  color: var(--dark-accent);
+}
+
+/* Image blending for theme integration */
+.image-blend {
+  transition: all 0.3s ease;
+  background-blend-mode: multiply;
+}
+
+body.dark-mode .image-blend,
+html.dark-mode .image-blend {
+  filter: brightness(0.85) contrast(1.15) saturate(0.9);
+  background-blend-mode: normal;
+}
+
+/* Alternative approach with background masking */
+.image-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.image-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--vintage-cream);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  opacity: 0.1;
+  transition: all 0.3s ease;
+}
+
+body.dark-mode .image-container::before,
+html.dark-mode .image-container::before {
+  background: var(--dark-bg);
+  mix-blend-mode: overlay;
+  opacity: 0.2;
+}
+
+/* Buttons with military feel */
+.btn-military {
+  background-color: var(--olive-green);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  border: 2px solid var(--dark-olive);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.btn-military:hover {
+  background-color: var(--dark-olive);
+  transform: translateY(-2px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.btn-hippie {
+  background: linear-gradient(to right, #a855f7, #fb923c);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.btn-hippie:hover {
+  background: linear-gradient(to right, #9333ea, #ea580c);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Navigation with tactical feel */
+.nav-tactical {
+  background: rgba(75, 94, 64, 0.95);
+  backdrop-filter: blur(10px);
+}
+
+/* Cards with polaroid/military styling */
+.card-military {
+  background-color: white;
+  border: 2px solid var(--olive-green);
+  padding: 1.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  transform: rotate(-0.5deg);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-military:hover {
+  transform: rotate(0deg);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Easter egg - Steal Your Face icon (hidden by default) */
+.steal-your-face {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  width: 24px;
+  height: 24px;
+  background: radial-gradient(circle, #ff4444 30%, #ffffff 30%, #ffffff 50%, #4444ff 50%);
+  border-radius: 50%;
+  position: relative;
+}
+
+.steal-your-face::after {
+  content: '⚡';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 12px;
+}
+
+.footer:hover .steal-your-face {
+  opacity: 1;
+}
+
+/* Responsive utilities */
+.container-11b {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container-11b {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-11b {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--light-tan);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--olive-green);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--dark-olive);
+}
+
+/* Dark mode scrollbar */
+body.dark-mode ::-webkit-scrollbar-track,
+html.dark-mode ::-webkit-scrollbar-track {
+  background: var(--dark-surface);
+}
+
+body.dark-mode ::-webkit-scrollbar-thumb,
+html.dark-mode ::-webkit-scrollbar-thumb {
+  background: var(--dark-olive-light);
+}
+
+body.dark-mode ::-webkit-scrollbar-thumb:hover,
+html.dark-mode ::-webkit-scrollbar-thumb:hover {
+  background: var(--olive-green);
+}
+
+/* Enhanced login form dark mode styles */
+body.dark-mode .card-military,
+html.dark-mode .card-military {
+  background-color: var(--dark-card) !important;
+  border-color: var(--dark-olive-light) !important;
+}
+
+body.dark-mode input[type="email"],
+body.dark-mode input[type="password"],
+html.dark-mode input[type="email"],
+html.dark-mode input[type="password"] {
+  background-color: var(--dark-surface) !important;
+  border-color: rgba(107, 124, 90, 0.3) !important;
+  color: var(--dark-text) !important;
+}
+
+body.dark-mode input[type="email"]:focus,
+body.dark-mode input[type="password"]:focus,
+html.dark-mode input[type="email"]:focus,
+html.dark-mode input[type="password"]:focus {
+  border-color: var(--dark-olive-light) !important;
+  box-shadow: 0 0 0 2px rgba(107, 124, 90, 0.2) !important;
+}
+
+body.dark-mode input::placeholder,
+html.dark-mode input::placeholder {
+  color: var(--dark-muted) !important;
+}
+
+body.dark-mode .bg-red-100,
+html.dark-mode .bg-red-100 {
+  background-color: rgba(239, 68, 68, 0.1) !important;
+}
+
+body.dark-mode .border-red-500,
+html.dark-mode .border-red-500 {
+  border-color: rgba(239, 68, 68, 0.5) !important;
+}
+
+body.dark-mode .text-red-700,
+html.dark-mode .text-red-700 {
+  color: #f87171 !important;
+}
+
+body.dark-mode .text-red-400,
+html.dark-mode .text-red-400 {
+  color: #f87171 !important;
+}

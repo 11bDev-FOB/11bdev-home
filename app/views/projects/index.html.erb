@@ -1,0 +1,47 @@
+<!-- Projects Index Page -->
+<section class="py-20 bg-white">
+  <div class="container-11b">
+    <!-- Header -->
+    <div class="text-center mb-16">
+      <h1 class="text-5xl lg:text-6xl font-bold text-dark-olive mb-6">
+        Things We're Building in the Skunk Works
+      </h1>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+        Here's what we're cooking up in our digital workshop. 
+        Real problems, practical solutions, zero startup BS.
+      </p>
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="grid md:grid-cols-3 gap-8 mb-16">
+      <% @projects.each do |project| %>
+        <div class="card-military bg-white">
+          <h2 class="text-2xl font-bold text-dark-olive mb-4">
+            <%= project.title %>
+          </h2>
+          
+          <p class="text-medium-gray mb-6 leading-relaxed">
+            <%= project.description %>
+          </p>
+          
+          <div class="text-sm text-olive font-medium">
+            Building with <%= project.tech_stack %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="text-center mt-20 p-12 bg-light-tan rounded-lg">
+      <h3 class="text-3xl font-bold text-dark-olive mb-4">
+        Want to Follow Along?
+      </h3>
+      <p class="text-xl text-gray-700 mb-6">
+        These projects are in active development. No launch dates, no false promises—
+        just honest work on useful tools.
+      </p>
+      <%= link_to "Get In Touch", contact_path, class: "btn-military mr-4" %>
+      <%= link_to "Learn About Us", about_path, class: "btn-hippie" %>
+    </div>
+  </div>
+</section>
