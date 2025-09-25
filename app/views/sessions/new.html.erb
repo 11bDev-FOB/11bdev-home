@@ -1,0 +1,72 @@
+<!-- Team Access Login - Military themed with proper responsive sizing -->
+<div class="min-h-screen bg-vintage-photo flex items-center justify-center p-4">
+  <div class="w-full max-w-sm mx-auto">
+    <!-- Login Card with Military Styling -->
+    <div class="card-military rounded-2xl p-8 shadow-2xl border-2 border-olive">
+      <!-- Header Section -->
+      <div class="text-center mb-8">
+        <div class="logo-11b text-lg mb-3 inline-block">11b</div>
+        <h2 class="text-2xl font-bold text-dark-olive mb-2">Team Access</h2>
+        <p class="text-medium-gray">Secure login for content management</p>
+      </div>
+
+      <!-- Login Form -->
+      <%= form_with url: login_path, local: true, class: "space-y-6" do |form| %>
+        <!-- Flash Messages -->
+        <% if flash[:alert] %>
+          <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded">
+            <div class="flex">
+              <div class="flex-shrink-0">
+                <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <div class="ml-3">
+                <p class="text-sm"><%= flash[:alert] %></p>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+        <!-- Email Field -->
+        <div class="space-y-2">
+          <%= form.label :email, "Email Address", class: "block text-sm font-semibold text-dark-olive" %>
+          <%= form.email_field :email, 
+                placeholder: "your@email.com", 
+                required: true,
+                class: "w-full px-4 py-3 rounded-lg border-2 border-olive/30 focus:border-olive focus:ring-2 focus:ring-olive/20 bg-cream text-dark-olive placeholder-medium-gray transition-all duration-200 ease-in-out shadow-inner" %>
+        </div>
+
+        <!-- Password Field -->
+        <div class="space-y-2">
+          <%= form.label :password, "Password", class: "block text-sm font-semibold text-dark-olive" %>
+          <%= form.password_field :password, 
+                placeholder: "Enter your password", 
+                required: true,
+                class: "w-full px-4 py-3 rounded-lg border-2 border-olive/30 focus:border-olive focus:ring-2 focus:ring-olive/20 bg-cream text-dark-olive placeholder-medium-gray transition-all duration-200 ease-in-out shadow-inner" %>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="pt-2">
+          <%= form.submit "Sign In", 
+                class: "w-full bg-olive hover:bg-dark-olive text-white font-bold py-3 px-6 rounded-lg transition-all duration-200 ease-in-out transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-olive focus:ring-offset-2 shadow-lg hover:shadow-xl" %>
+        </div>
+      <% end %>
+
+      <!-- Footer Link -->
+      <div class="text-center mt-8 pt-6 border-t border-olive/20">
+        <%= link_to root_path, class: "inline-flex items-center text-olive hover:text-dark-olive text-sm font-medium transition-colors duration-200" do %>
+          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          Back to site
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Decorative Elements -->
+    <div class="text-center mt-6 opacity-60">
+      <p class="text-xs text-medium-gray">Secured access • 11b Dev</p>
+    </div>
+  </div>
+</div>
