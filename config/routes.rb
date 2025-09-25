@@ -19,5 +19,4 @@ Rails.application.routes.draw do
   resources :projects, only: [:index, :show]
 
   # Contact form
-  resources :contacts, only: [:create]
 end

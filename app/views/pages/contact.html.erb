@@ -67,9 +67,26 @@
         </div>
       </div>
       
-      <!-- Contact Form -->
+      <!-- Letterbird Contact Form -->
       <div id="contact_form_container" class="bg-light-tan p-8 rounded-lg shadow-lg">
-        <%= render 'contact_form', contact: @contact %>
+        <div>
+          <h2 class="text-3xl font-bold text-dark-olive mb-6">Send Us a Message</h2>
+          <p class="text-gray-600 mb-6">
+            Ready to start your mission? Fill out the form below and we'll respond ASAP - no man left behind.
+          </p>
+        </div>
+        
+        <!-- Letterbird Embed -->
+        <div id="letterbird-form">
+          <script data-letterbirduser="tim-ff376817" src="https://letterbird.co/embed/v1.js"></script>
+        </div>
+        
+        <div class="text-sm text-gray-500 mt-6">
+          <p>
+            Mission received - we'll respond ASAP | By submitting this form, you agree to our 
+            <a href="#" class="text-muted-blue hover:text-olive transition-colors">privacy policy</a>.
+          </p>
+        </div>
       </div>
     </div>
   </div>

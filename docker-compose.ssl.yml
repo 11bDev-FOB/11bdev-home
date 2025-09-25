@@ -1,0 +1,42 @@
+services:
+  app:
+    image: eleven_b_dev
+    container_name: eleven_b_dev_app
+    restart: unless-stopped
+    environment:
+      - RAILS_ENV=production
+      - RAILS_MASTER_KEY=e296d0b7c9997c18968abb26920231df
+      - RAILS_SERVE_STATIC_FILES=true
+      - RAILS_LOG_TO_STDOUT=true
+      - DISABLE_DATABASE_ENVIRONMENT_CHECK=1
+    expose:
+      - "80"
+    volumes:
+      - app_storage:/rails/storage
+      - app_logs:/rails/log
+    networks:
+      - app_network
+
+  nginx:
+    image: nginx:alpine
+    container_name: eleven_b_dev_nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+      - /var/www/certbot:/var/www/certbot:ro
+    depends_on:
+      - app
+    networks:
+      - app_network
+
+volumes:
+  app_storage:
+  app_logs:
+
+networks:
+  app_network:
+    driver: bridge

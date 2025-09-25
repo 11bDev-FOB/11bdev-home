@@ -9,7 +9,7 @@ class PagesController < ApplicationController
   end
 
   def contact
-    @contact = Contact.new
+    # Using Letterbird for contact form - no Rails model needed
   end
 
   def services
