@@ -8,6 +8,10 @@ class PagesController < ApplicationController
     @team_members = [] # Can be expanded later if adding Team model
   end
 
+  def opensource
+    # Placeholder for future open source projects
+  end
+
   def contact
     # Using Letterbird for contact form - no Rails model needed
   end

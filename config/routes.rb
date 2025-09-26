@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   # Static pages
   get "about", to: "pages#about"
   get "contact", to: "pages#contact"
+  get "opensource", to: "pages#opensource"
 
   # Projects
   resources :projects, only: [:index, :show]

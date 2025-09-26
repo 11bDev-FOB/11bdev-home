@@ -17,6 +17,9 @@ Rails.application.configure do
   config.action_controller.perform_caching = true
 
   # Cache assets for far-future expiry since they are all digest stamped.
+  # Enable serving of static files from the `/public` folder by default since
+  # Apache or NGINX already handles this.
+  config.public_file_server.enabled = true
   config.public_file_server.headers = { "cache-control" => "public, max-age=#{1.year.to_i}" }
 
   # Do not fall back to assets pipeline if a precompiled asset is missed.
@@ -93,7 +96,9 @@ Rails.application.configure do
   # Enable DNS rebinding protection and other `Host` header attacks.
   config.hosts = [
     "11b.dev",           # Allow requests from 11b.dev
-    "www.11b.dev"        # Allow requests from www.11b.dev if needed
+    "www.11b.dev",
+    "app",               # Allow requests from Docker service name
+    "rails_app"          # Allow requests from nginx upstream name        # Allow requests from www.11b.dev if needed
   ]
 
 end
