@@ -16,6 +16,10 @@ Rails.application.routes.draw do
   get "contact", to: "pages#contact"
   get "opensource", to: "pages#opensource"
 
+  # Sitrep page
+  get "sitrep", to: "sitrep#index"
+  post "sitrep/refresh", to: "sitrep#refresh"
+
   # Projects
   resources :projects, only: [:index, :show]
 

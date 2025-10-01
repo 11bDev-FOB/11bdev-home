@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_24_132851) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_01_002815) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -88,6 +88,21 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_24_132851) do
     t.string "price_range"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "sitrep_items", force: :cascade do |t|
+    t.string "item_type"
+    t.string "title"
+    t.text "content"
+    t.string "url"
+    t.string "external_id"
+    t.datetime "published_at"
+    t.json "metadata"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["external_id"], name: "index_sitrep_items_on_external_id", unique: true
+    t.index ["item_type"], name: "index_sitrep_items_on_item_type"
+    t.index ["published_at"], name: "index_sitrep_items_on_published_at"
   end
 
   create_table "testimonials", force: :cascade do |t|

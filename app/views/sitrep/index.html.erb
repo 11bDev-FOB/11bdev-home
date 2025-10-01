@@ -1,0 +1,148 @@
+<!-- Sitrep Page with Site Color Scheme -->
+<section class="py-20 bg-white">
+  <div class="container-11b">
+    <!-- Hero Section -->
+    <div class="text-center mb-16">
+      <h1 class="text-5xl lg:text-6xl font-bold text-dark-olive mb-6">
+        📊 SITREP
+      </h1>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-4">
+        Situation Report - Real-time Activity Feed
+      </p>
+      <p class="text-sm text-gray-500">
+        Tracking 11bDev-FOB GitHub & Nostr Activity
+      </p>
+      
+      <!-- Stats Bar -->
+      <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+        <div class="bg-vintage-cream p-4 rounded-lg border border-olive">
+          <div class="text-3xl font-bold text-dark-olive"><%= @stats[:total_items] %></div>
+          <div class="text-sm text-gray-600">Total Items</div>
+        </div>
+        <div class="bg-vintage-cream p-4 rounded-lg border border-olive">
+          <div class="text-3xl font-bold text-dark-olive"><%= @stats[:github_count] %></div>
+          <div class="text-sm text-gray-600">GitHub Events</div>
+        </div>
+        <div class="bg-vintage-cream p-4 rounded-lg border border-olive">
+          <div class="text-3xl font-bold text-dark-olive"><%= @stats[:nostr_count] %></div>
+          <div class="text-sm text-gray-600">Nostr Notes</div>
+        </div>
+        <div class="bg-vintage-cream p-4 rounded-lg border border-olive">
+          <div class="text-3xl font-bold text-dark-olive"><%= @stats[:last_24h] %></div>
+          <div class="text-sm text-gray-600">Last 24 Hours</div>
+        </div>
+      </div>
+      
+      <!-- Refresh Button -->
+      <div class="mt-8">
+        <%= button_to "🔄 Refresh Feed", sitrep_refresh_path, method: :post, class: "btn-military" %>
+      </div>
+    </div>
+
+    <!-- Activity Feed -->
+    <div class="max-w-4xl mx-auto">
+      <% if @sitrep_items.empty? %>
+        <div class="text-center py-16 bg-vintage-cream rounded-lg">
+          <div class="text-6xl mb-4">📭</div>
+          <h2 class="text-2xl font-bold text-dark-olive mb-2">No Activity Yet</h2>
+          <p class="text-gray-600 mb-6">Click the refresh button to load recent activity</p>
+          <%= button_to "🔄 Load Activity", sitrep_refresh_path, method: :post, class: "btn-military inline-block" %>
+        </div>
+      <% else %>
+        <div class="space-y-8">
+          <% @items_by_date.each do |date, items| %>
+            <div class="mb-8">
+              <!-- Date Header -->
+              <div class="flex items-center mb-4">
+                <div class="bg-olive text-white px-4 py-2 rounded-full text-sm font-semibold">
+                  <%= date.strftime("%B %d, %Y") %>
+                </div>
+                <div class="flex-1 h-px bg-gray-300 ml-4"></div>
+              </div>
+              
+              <!-- Items for this date -->
+              <div class="space-y-4">
+                <% items.each do |item| %>
+                  <div class="bg-vintage-cream rounded-lg p-6 hover:bg-vintage-photo transition border border-gray-300 hover:border-olive">
+                    <div class="flex items-start justify-between">
+                      <div class="flex-1">
+                        <!-- Item Header -->
+                        <div class="flex items-center mb-2">
+                          <% if item.item_type == 'github' %>
+                            <span class="inline-block bg-dark-olive text-white text-xs px-2 py-1 rounded mr-2">GitHub</span>
+                          <% elsif item.item_type == 'nostr' %>
+                            <span class="inline-block bg-purple-600 text-white text-xs px-2 py-1 rounded mr-2">Nostr</span>
+                          <% end %>
+                          <span class="text-gray-500 text-sm">
+                            <%= time_ago_in_words(item.published_at) %> ago
+                          </span>
+                        </div>
+                        
+                        <!-- Item Title -->
+                        <h3 class="text-xl font-semibold mb-2 text-dark-olive">
+                          <%= link_to item.title, item.url, target: "_blank", rel: "noopener noreferrer", class: "hover:text-olive transition" %>
+                        </h3>
+                        
+                        <!-- Item Content -->
+                        <p class="text-gray-600 mb-3"><%= item.content %></p>
+                        
+                        <!-- Metadata -->
+                        <% if item.metadata.present? %>
+                          <div class="flex flex-wrap gap-2 text-xs text-gray-600">
+                            <% if item.metadata['repo_name'] %>
+                              <span class="bg-white px-2 py-1 rounded border border-gray-300">
+                                📦 <%= item.metadata['repo_name'] %>
+                              </span>
+                            <% end %>
+                            <% if item.metadata['commits_count'] %>
+                              <span class="bg-white px-2 py-1 rounded border border-gray-300">
+                                💾 <%= item.metadata['commits_count'] %> commits
+                              </span>
+                            <% end %>
+                            <% if item.metadata['language'] %>
+                              <span class="bg-white px-2 py-1 rounded border border-gray-300">
+                                💻 <%= item.metadata['language'] %>
+                              </span>
+                            <% end %>
+                            <% if item.metadata['stars'] && item.metadata['stars'] > 0 %>
+                              <span class="bg-white px-2 py-1 rounded border border-gray-300">
+                                ⭐ <%= item.metadata['stars'] %>
+                              </span>
+                            <% end %>
+                            <% if item.metadata['platform'] == 'nostr' %>
+                              <span class="bg-white px-2 py-1 rounded border border-gray-300">
+                                ⚡ Nostr Note
+                              </span>
+                            <% end %>
+                          </div>
+                        <% end %>
+                      </div>
+                      
+                      <!-- External Link Icon -->
+                      <div class="ml-4">
+                        <%= link_to item.url, target: "_blank", rel: "noopener noreferrer", class: "text-gray-500 hover:text-olive transition" do %>
+                          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                          </svg>
+                        <% end %>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Footer Links -->
+    <div class="text-center mt-12 pt-8 border-t border-gray-300">
+      <div class="flex justify-center gap-6 text-sm">
+        <%= link_to "⚡ Nostr: npub13hyx...", "https://njump.me/npub13hyx3qsqk3r7ctjqrr49uskut4yqjsxt8uvu4rekr55p08wyhf0qq90nt7", target: "_blank", rel: "noopener noreferrer", class: "text-olive hover:text-dark-olive" %>
+        <%= link_to "💻 GitHub Org", "https://github.com/11bDev-FOB/", target: "_blank", rel: "noopener noreferrer", class: "text-olive hover:text-dark-olive" %>
+        <%= link_to "🏠 Home", root_path, class: "text-olive hover:text-dark-olive" %>
+      </div>
+    </div>
+  </div>
+</section>

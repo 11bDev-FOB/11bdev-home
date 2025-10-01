@@ -63,3 +63,19 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+# HTTP client for API calls
+gem "httparty"
+
+# For X/Twitter scraping (if needed)
+gem "nokogiri"
+
+# Load environment variables from .env file
+gem "dotenv-rails", groups: [:development, :test]
+
+# For Nostr npub/hex conversion
+gem "bech32"
+
+# For Nostr WebSocket relay connections
+gem "faye-websocket"
+gem "eventmachine"

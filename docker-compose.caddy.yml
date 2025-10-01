@@ -1,0 +1,42 @@
+services:
+  app:
+    image: eleven_b_dev
+    container_name: eleven_b_dev_app
+    restart: unless-stopped
+    environment:
+      - RAILS_ENV=production
+      - RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
+      - RAILS_SERVE_STATIC_FILES=true
+      - RAILS_LOG_TO_STDOUT=true
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+    volumes:
+      - app_storage:/rails/storage
+      - app_logs:/rails/log
+    networks:
+      - app_network
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: eleven_b_dev_caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - app
+    networks:
+      - app_network
+
+volumes:
+  app_storage:
+  app_logs:
+  caddy_data:
+  caddy_config:
+
+networks:
+  app_network:
+    driver: bridge
