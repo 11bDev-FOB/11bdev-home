@@ -22,7 +22,7 @@
         </div>
         
         <!-- Value Proposition -->
-        <div class="mt-12 p-6 bg-vintage-cream bg-opacity-70 rounded-lg border-l-4 border-olive shadow-sm">
+        <div class="mt-12 p-6 bg-white bg-opacity-70 rounded-lg border-l-4 border-olive shadow-sm">
           <p class="text-medium-gray mb-3">
             <strong class="text-dark-olive">Why We're Different:</strong> 
             We build products we actually wanted for ourselves. No fluff, no BS, no "revolutionary" to-do lists. 
@@ -34,7 +34,7 @@
       <div class="relative">
         <!-- Veteran Hippie Van Image -->
         <div class="relative image-container">
-          <%= image_tag "11b-dev-van.png", 
+          <%= image_tag "veteran-hippie-van.png", 
               alt: "Veteran developer working from hippie van - the perfect blend of military precision and creative freedom", 
               class: "w-full h-auto rounded-lg shadow-xl image-blend",
               loading: "lazy" %>
@@ -56,7 +56,7 @@
 
 <!-- Featured Products Section -->
 <% if @featured_projects.present? %>
-<section class="py-20 bg-vintage-cream">
+<section class="py-20 bg-white">
   <div class="container-11b">
     <div class="text-center mb-16">
       <h2 class="text-4xl lg:text-5xl font-bold text-dark-olive mb-6">
@@ -70,7 +70,7 @@
     
     <div class="grid md:grid-cols-3 gap-8">
       <% @featured_projects.each do |project| %>
-        <div class="card-military group bg-vintage-cream">
+        <div class="card-military group bg-white">
           <div class="aspect-video bg-light-tan mb-4 rounded-lg flex items-center justify-center text-dark-olive">
             <% if project.featured_image.attached? %>
               <%= image_tag project.featured_image, alt: project.title, class: "w-full h-full object-cover rounded-lg" %>
@@ -108,6 +108,84 @@
 </section>
 <% end %>
 
+<!-- What We Do -->
+<section class="py-20 bg-light-tan">
+  <div class="container-11b">
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <h2 class="text-4xl lg:text-5xl font-bold text-dark-olive mb-6">
+          Product-First Approach
+        </h2>
+        <p class="text-xl text-medium-gray mb-8">
+          We're not consultants or freelancers. We're product builders who create, 
+          deploy, and maintain our own digital products and SaaS applications. 
+          Every solution we build becomes part of our growing ecosystem.
+        </p>
+        
+        <div class="space-y-4">
+          <div class="flex items-start space-x-4">
+            <div class="w-3 h-3 bg-olive rounded-full mt-2 flex-shrink-0"></div>
+            <div>
+              <h3 class="font-semibold text-dark-olive">SaaS Products</h3>
+              <p class="text-medium-gray">Subscription-based applications we own and operate</p>
+            </div>
+          </div>
+          
+          <div class="flex items-start space-x-4">
+            <div class="w-3 h-3 bg-olive rounded-full mt-2 flex-shrink-0"></div>
+            <div>
+              <h3 class="font-semibold text-dark-olive">API Services</h3>
+              <p class="text-medium-gray">Developer tools and integrations available as services</p>
+            </div>
+          </div>
+          
+          <div class="flex items-start space-x-4">
+            <div class="w-3 h-3 bg-olive rounded-full mt-2 flex-shrink-0"></div>
+            <div>
+              <h3 class="font-semibold text-dark-olive">Digital Tools</h3>
+              <p class="text-medium-gray">Utility applications that solve specific problems</p>
+            </div>
+          </div>
+        </div>
+        
+        <%= link_to "Learn More About Us", about_path, class: "btn-hippie mt-8 inline-block" %>
+      </div>
+      
+      <div class="relative">
+        <!-- Code terminal illustration with better contrast -->
+        <div class="bg-dark-olive text-tan p-6 rounded-lg shadow-lg font-mono text-sm">
+          <div class="flex items-center space-x-2 mb-4 border-b border-tan border-opacity-50 pb-2">
+            <div class="w-3 h-3 bg-red-400 rounded-full"></div>
+            <div class="w-3 h-3 bg-yellow-400 rounded-full"></div>
+            <div class="w-3 h-3 bg-green-400 rounded-full"></div>
+            <span class="text-xs text-tan opacity-75 ml-4">terminal - 11b_dev</span>
+          </div>
+          
+          <div class="space-y-2">
+            <div class="flex">
+              <span class="text-green-400">$</span>
+              <span class="ml-2 text-white">rails new our_saas_product</span>
+            </div>
+            <div class="text-tan opacity-75">Creating new product...</div>
+            <div class="flex">
+              <span class="text-green-400">$</span>
+              <span class="ml-2 text-white">git commit -m "Launch day 🚀"</span>
+            </div>
+            <div class="text-tan opacity-75">Product deployed successfully!</div>
+            <div class="flex">
+              <span class="text-green-400">$</span>
+              <span class="ml-2 animate-pulse text-white">|</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Floating decorative elements -->
+        <div class="absolute -top-2 -right-2 dog-tag text-xs px-2 py-1 bg-white text-dark-olive border">Rails 7</div>
+        <div class="absolute -bottom-4 -left-4 w-8 h-8 bg-tie-dye rounded-full opacity-50"></div>
+      </div>
+    </div>
+  </div>
+</section>
 <!-- Call to Action -->
 <section class="py-20 bg-dark-olive relative overflow-hidden">
   <div class="absolute inset-0 bg-tie-dye opacity-20"></div>
@@ -118,11 +196,9 @@
     </h2>
     
     <p class="text-xl text-gray-200 max-w-2xl mx-auto mb-8">
-      Still here? Outstanding. Look, we had each other's backs downrange—didn't matter 
-      if you were Army, Marines, Navy, Air Force, or from some other country entirely. 
-      That brotherhood doesn't end when you hang up the uniform. The tech world's full of 
-      egos and BS, but some of us still believe in covering your six and building tools 
-      that actually work. Hoorah, Oorah, Hooah—whatever you said back in the day.
+      If you've made it this far, you're probably not looking for another "disruptive" 
+      social media platform. Good. We build tools that actually work—whether from 
+      a traditional office or the back of a van.
     </p>
     
     <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -133,8 +209,8 @@
     
     <div class="mt-12 text-gray-300">
       <p class="text-sm">
-        💬 <a href="https://discord.gg/AGXejUhQ3W" class="text-tan hover:underline" target="_blank">Join our Discord</a> | 
-        Built with Rails & ❤️ (and lots of coffee) | 
+        📧 <a href="mailto:info@11b.dev" class="text-tan hover:underline">info@11b.dev</a> | 
+        Built with Rails 7 & ❤️ (and lots of coffee) | 
         <span class="steal-your-face inline-block"></span>
       </p>
     </div>

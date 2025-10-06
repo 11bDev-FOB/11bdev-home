@@ -12,6 +12,10 @@ class PagesController < ApplicationController
     # Placeholder for future open source projects
   end
 
+  def smb
+    # SMB services page
+  end
+
   def contact
     # Using Letterbird for contact form - no Rails model needed
   end

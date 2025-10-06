@@ -22,7 +22,7 @@
         </div>
         
         <!-- Value Proposition -->
-        <div class="mt-12 p-6 bg-vintage-cream bg-opacity-70 rounded-lg border-l-4 border-olive shadow-sm">
+        <div class="mt-12 p-6 bg-white bg-opacity-70 rounded-lg border-l-4 border-olive shadow-sm">
           <p class="text-medium-gray mb-3">
             <strong class="text-dark-olive">Why We're Different:</strong> 
             We build products we actually wanted for ourselves. No fluff, no BS, no "revolutionary" to-do lists. 
@@ -34,7 +34,7 @@
       <div class="relative">
         <!-- Veteran Hippie Van Image -->
         <div class="relative image-container">
-          <%= image_tag "11b-dev-van.png", 
+          <%= image_tag "veteran-hippie-van.png", 
               alt: "Veteran developer working from hippie van - the perfect blend of military precision and creative freedom", 
               class: "w-full h-auto rounded-lg shadow-xl image-blend",
               loading: "lazy" %>
@@ -56,7 +56,7 @@
 
 <!-- Featured Products Section -->
 <% if @featured_projects.present? %>
-<section class="py-20 bg-vintage-cream">
+<section class="py-20 bg-white">
   <div class="container-11b">
     <div class="text-center mb-16">
       <h2 class="text-4xl lg:text-5xl font-bold text-dark-olive mb-6">
@@ -70,7 +70,7 @@
     
     <div class="grid md:grid-cols-3 gap-8">
       <% @featured_projects.each do |project| %>
-        <div class="card-military group bg-vintage-cream">
+        <div class="card-military group bg-white">
           <div class="aspect-video bg-light-tan mb-4 rounded-lg flex items-center justify-center text-dark-olive">
             <% if project.featured_image.attached? %>
               <%= image_tag project.featured_image, alt: project.title, class: "w-full h-full object-cover rounded-lg" %>
@@ -118,11 +118,9 @@
     </h2>
     
     <p class="text-xl text-gray-200 max-w-2xl mx-auto mb-8">
-      Still here? Outstanding. Look, we had each other's backs downrange—didn't matter 
-      if you were Army, Marines, Navy, Air Force, or from some other country entirely. 
-      That brotherhood doesn't end when you hang up the uniform. The tech world's full of 
-      egos and BS, but some of us still believe in covering your six and building tools 
-      that actually work. Hoorah, Oorah, Hooah—whatever you said back in the day.
+      If you've made it this far, you're probably not looking for another "disruptive" 
+      social media platform. Good. We build tools that actually work—whether from 
+      a traditional office or the back of a van.
     </p>
     
     <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -133,8 +131,8 @@
     
     <div class="mt-12 text-gray-300">
       <p class="text-sm">
-        💬 <a href="https://discord.gg/AGXejUhQ3W" class="text-tan hover:underline" target="_blank">Join our Discord</a> | 
-        Built with Rails & ❤️ (and lots of coffee) | 
+        📧 <a href="mailto:info@11b.dev" class="text-tan hover:underline">info@11b.dev</a> | 
+        Built with Rails 7 & ❤️ (and lots of coffee) | 
         <span class="steal-your-face inline-block"></span>
       </p>
     </div>

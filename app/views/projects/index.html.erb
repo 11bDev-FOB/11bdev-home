@@ -1,5 +1,5 @@
 <!-- Projects Index Page -->
-<section class="py-20 bg-white">
+<section class="py-20 bg-vintage-cream">
   <div class="container-11b">
     <!-- Header -->
     <div class="text-center mb-16">
@@ -24,9 +24,18 @@
             <%= project.description %>
           </p>
           
-          <div class="text-sm text-olive font-medium">
+          <div class="text-sm text-olive font-medium mb-4">
             Building with <%= project.tech_stack %>
           </div>
+          
+          <% if project.project_url.present? %>
+            <div class="mt-4">
+              <%= link_to "Visit #{project.title}", project.project_url, 
+                    class: "btn-military inline-block", 
+                    target: "_blank", 
+                    rel: "noopener noreferrer" %>
+            </div>
+          <% end %>
         </div>
       <% end %>
     </div>

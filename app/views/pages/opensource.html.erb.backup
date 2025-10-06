@@ -11,94 +11,32 @@
       </h1>
       
       <p class="text-xl lg:text-2xl mb-8 text-medium-gray max-w-4xl mx-auto">
-        <strong>Mission Status:</strong> We've got boots on the ground! Check out our live projects below, 
-        and expect more intel drops as we continue building tools that don't suck.
+        <strong>Mission Status:</strong> Currently in R&D phase. But we've got eyes on the prize and 
+        some serious respect for the troops who've been holding down this sector since day one.
       </p>
-    </div>
-
-    <!-- Live Projects Section -->
-    <div class="mb-16">
-      <h2 class="text-4xl font-bold text-dark-olive mb-8 text-center">
-        🎯 Active Deployment
-      </h2>
-      
-      <div class="card-military bg-white mb-8">
-        <div class="flex flex-col lg:flex-row items-start lg:items-center gap-6">
-          <div class="flex-shrink-0">
-            <div class="w-16 h-16 bg-olive rounded-lg flex items-center justify-center text-3xl text-white">
-              💥
-            </div>
-          </div>
-          
-          <div class="flex-1">
-            <h3 class="text-3xl font-bold text-dark-olive mb-4">Fragout</h3>
-            <p class="text-lg text-medium-gray mb-4">
-              A tactical application built for real-world deployment. Free to use, open source, 
-              and ready for action. Fork it, improve it, make it your own.
-            </p>
-            
-            <div class="grid md:grid-cols-2 gap-4 mb-6">
-              <div class="bg-light-tan p-4 rounded">
-                <strong class="text-dark-olive">Status:</strong>
-                <span class="text-medium-gray">Live & Operational</span>
-              </div>
-              <div class="bg-light-tan p-4 rounded">
-                <strong class="text-dark-olive">License:</strong>
-                <span class="text-medium-gray">Open Source</span>
-              </div>
-              <div class="bg-light-tan p-4 rounded">
-                <strong class="text-dark-olive">Service:</strong>
-                <span class="text-medium-gray">Free (server permitting)</span>
-              </div>
-              <div class="bg-light-tan p-4 rounded">
-                <strong class="text-dark-olive">Philosophy:</strong>
-                <span class="text-medium-gray">Fork to your heart's content</span>
-              </div>
-            </div>
-            
-            <div class="flex flex-col sm:flex-row gap-4">
-              <%= link_to "🚀 Launch Fragout", "https://fragout.11b.dev", 
-                          target: "_blank", 
-                          class: "btn-military" %>
-              <%= link_to "📦 Source Code", "https://github.com/11bDev-FOB/fragout", 
-                          target: "_blank", 
-                          class: "btn-hippie" %>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="text-center">
-        <div class="p-4 bg-dark-olive text-white rounded-lg max-w-2xl mx-auto">
-          <p class="italic">
-            "This is how we roll: build it right, ship it free, keep it maintained. 
-            No compromises, no half-measures."
-          </p>
-        </div>
-      </div>
     </div>
 
     <!-- Current Status -->
     <div class="grid lg:grid-cols-2 gap-12 mb-16">
       <div class="card-military bg-white">
         <h2 class="text-3xl font-bold text-dark-olive mb-6">
-          📋 Mission Status
+          🎯 Current Mission Status
         </h2>
         
         <div class="space-y-4">
           <div class="flex items-start space-x-3">
-            <div class="w-2 h-2 bg-green-500 rounded-full mt-3"></div>
+            <div class="w-2 h-2 bg-olive rounded-full mt-3"></div>
             <div>
-              <strong class="text-dark-olive">Phase 1 - Deployment:</strong>
-              <span class="text-medium-gray">Fragout is live and operational. Mission accomplished!</span>
+              <strong class="text-dark-olive">Phase 1 - Reconnaissance:</strong>
+              <span class="text-medium-gray">We're deep in product development mode right now. Building tools that don't suck takes time, and we're not about to half-ass it.</span>
             </div>
           </div>
           
           <div class="flex items-start space-x-3">
             <div class="w-2 h-2 bg-olive rounded-full mt-3"></div>
             <div>
-              <strong class="text-dark-olive">Phase 2 - Expansion:</strong>
-              <span class="text-medium-gray">More projects in active development. Battle-testing in progress.</span>
+              <strong class="text-dark-olive">Phase 2 - Deployment:</strong>
+              <span class="text-medium-gray">Once our products are battle-tested and proven in the field, we'll extract the good stuff and release it to the wild.</span>
             </div>
           </div>
           
@@ -149,9 +87,9 @@
             <div class="text-green-400 mb-2">$ git remote -v</div>
             <div class="text-gray-300 mb-2">origin: https://github.com/11bDev-FOB</div>
             <div class="text-green-400 mb-2">$ git status</div>
-            <div class="text-green-400">Status: Active deployments</div>
-            <div class="text-gray-300">Live repos: 2 (fragout + this site)</div>
-            <div class="text-gray-300">Pipeline: Several more in development</div>
+            <div class="text-yellow-400">Status: Under active development</div>
+            <div class="text-gray-300">Current repos: 1 (this site)</div>
+            <div class="text-gray-300">Planned releases: Several in the pipeline</div>
           </div>
           
           <div class="mt-4">
@@ -233,8 +171,8 @@
       </h2>
       
       <p class="text-xl text-medium-gray mb-8 max-w-2xl mx-auto">
-        Follow our GitHub organizations, try out Fragout, or shoot us a message. 
-        We'll let you know when we've got more tools worth your time.
+        Follow our GitHub organizations or shoot us a message. We'll let you know when we've got 
+        something worth your time.
       </p>
       
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
@@ -248,7 +186,7 @@
       <div class="mt-8 text-sm text-medium-gray">
         <p>
           <strong>Remember:</strong> The best open source projects solve real problems. 
-          We're solving ours first, then we'll share the solutions. Fragout is proof we deliver. 🎸
+          We're solving ours first, then we'll share the solutions. Stay tuned. 🎸
         </p>
       </div>
     </div>

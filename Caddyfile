@@ -1,0 +1,8 @@
+11b.dev www.11b.dev {
+    reverse_proxy app:80
+}
+
+# Fallback for any other requests (including localhost)
+:80 {
+    reverse_proxy app:80
+}

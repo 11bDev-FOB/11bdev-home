@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get "about", to: "pages#about"
   get "contact", to: "pages#contact"
   get "opensource", to: "pages#opensource"
+  get "smb", to: "pages#smb"
 
   # Sitrep page
   get "sitrep", to: "sitrep#index"

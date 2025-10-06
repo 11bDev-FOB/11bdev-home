@@ -19,22 +19,24 @@ puts "Creating projects..."
 projects = [
   {
     title: "Hayduke",
-    description: "A simple clean Indie blogging service for military grade hipsters.",
-    tech_stack: "Rails 7",
+    description: "A simple clean Indie blogging service for digital monkeywrenchers and authentic voices. Sabotage the algorithm, liberate your voice.",
+    tech_stack: "Ruby on Rails",
     client_outcome: "",
-    featured: true
+    featured: true,
+    project_url: "https://hayduke.app"
   },
   {
-    title: "Yall",
-    description: "A social poster and scheduler for Mastodon, Threads, Bluesky, X, and Nostr",
-    tech_stack: "Rails 7",
+    title: "FragOut",
+    description: "Deploy to Mastodon, Bluesky, Nostr, and X from one tactical interface. Battle-tested security for cross-platform operations.",
+    tech_stack: "Web Technologies",
     client_outcome: "",
-    featured: true
+    featured: true,
+    project_url: "https://fragout.11b.dev"
   },
   {
-    title: "Squared Away",
-    description: "A super simple and clean Task/Project manager for people who don't need so many bells it sounds like Santas sleigh.",
-    tech_stack: "Rails 7",
+    title: "OPORD",
+    description: "A super simple and clean Task/Project manager for people who don't need so many bells it sounds like Santa's sleigh. Still in development.",
+    tech_stack: "Ruby on Rails",
     client_outcome: "",
     featured: true
   }
