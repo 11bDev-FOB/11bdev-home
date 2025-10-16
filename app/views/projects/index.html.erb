@@ -10,28 +10,38 @@
         Here's what we're cooking up in our digital workshop. 
         Real problems, practical solutions, zero startup BS.
       </p>
+      <p class="mt-4 text-sm text-gray-500">
+        📜 Using our free & open source projects? Check out the 
+        <%= link_to "Legal Battle Orders", legal_path, class: "text-olive font-semibold hover:underline" %> 
+        (aka "terms when you use our stuff, but way more fun to read")
+      </p>
     </div>
 
     <!-- Projects Grid -->
     <div class="grid md:grid-cols-3 gap-8 mb-16">
       <% @projects.each do |project| %>
-        <div class="card-military bg-white">
-          <h2 class="text-2xl font-bold text-dark-olive mb-4">
+        <div class="bg-white rounded-lg shadow p-8 border-l-4 border-olive/70 hover:shadow-lg transition">
+          <h2 class="text-2xl font-bold text-dark-olive mb-2">
             <%= project.title %>
           </h2>
-          
-          <p class="text-medium-gray mb-6 leading-relaxed">
+          <% if project.featured_image.attached? %>
+            <div class="mb-4">
+              <%= image_tag project.featured_image, class: "rounded w-full h-auto" %>
+            </div>
+          <% end %>
+
+          <p class="text-medium-gray mb-4 leading-relaxed">
             <%= project.description %>
           </p>
           
-          <div class="text-sm text-olive font-medium mb-4">
+          <div class="text-sm text-olive font-medium mb-2">
             Building with <%= project.tech_stack %>
           </div>
           
           <% if project.project_url.present? %>
-            <div class="mt-4">
-              <%= link_to "Visit #{project.title}", project.project_url, 
-                    class: "btn-military inline-block", 
+            <div class="mt-2">
+              <%= link_to "Visit #{project.title}", project.project_url,
+                    class: "btn-military inline-block",
                     target: "_blank", 
                     rel: "noopener noreferrer" %>
             </div>

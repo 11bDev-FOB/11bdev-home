@@ -23,7 +23,7 @@
 - **🌙 Dark Mode**: Toggle between light and dark themes with localStorage persistence
 - **⚡ Modern Stack**: Rails 8.0.3 with Hotwire, Tailwind CSS, and SQLite
 - **🎯 Project Showcase**: Dynamic project gallery with featured items
-- **💬 Contact System**: Integrated contact form with email notifications
+- **💬 Contact**: Letterbird embedded form
 - **🔒 Production Ready**: Docker support, CI/CD with GitHub Actions
 
 ## 🛠️ Tech Stack
@@ -38,8 +38,8 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/11bDev-FOB/eleven-b-dev-site.git
-cd eleven-b-dev-site
+git clone https://github.com/11bDev/11bdev-home.git
+cd 11bdev-home
 
 # Install dependencies
 bundle install
@@ -58,7 +58,7 @@ Visit `http://localhost:3000` to see the site in action!
 ```
 app/
 ├── controllers/     # Request handling
-├── models/         # Data models (Project, Testimonial, Contact)
+├── models/         # Data models (Project, Testimonial, Service)
 ├── views/          # HTML templates with ERB
 └── assets/         # Stylesheets and images
 
@@ -133,7 +133,7 @@ Born from the fusion of military precision and countercultural creativity, 11b D
 ### 📞 Contact
 
 - **Website**: [11b.dev](https://11b.dev)
-- **GitHub**: [@11bDev-FOB](https://github.com/11bDev-FOB)
+- **GitHub**: [@11bDev](https://github.com/11bDev)
 - **Email**: dev@11b.dev
 
 *Built with ❤️ by veterans, for everyone*

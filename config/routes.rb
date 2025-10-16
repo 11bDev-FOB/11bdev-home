@@ -14,8 +14,8 @@ Rails.application.routes.draw do
   # Static pages
   get "about", to: "pages#about"
   get "contact", to: "pages#contact"
-  get "opensource", to: "pages#opensource"
   get "smb", to: "pages#smb"
+  get "legal", to: "pages#legal"
 
   # Sitrep page
   get "sitrep", to: "sitrep#index"
@@ -23,6 +23,20 @@ Rails.application.routes.draw do
 
   # Projects
   resources :projects, only: [:index, :show]
-
-  # Contact form
+  
+  # Admin backoffice (must come before blog routes to avoid conflicts)
+  namespace :admin do
+    root "dashboard#index"
+    resources :posts
+    resources :projects
+  end
+  
+  # Blog (comes after admin to avoid route conflicts)
+  resources :posts, only: [:index, :show], path: "blog"
+  
+  # API endpoints
+  namespace :api, defaults: { format: :json } do
+    resources :posts, only: [:index, :show, :create, :update, :destroy]
+    resources :projects, only: [:index, :show, :create, :update, :destroy]
+  end
 end

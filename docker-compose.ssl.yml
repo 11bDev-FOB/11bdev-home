@@ -5,7 +5,7 @@ services:
     restart: unless-stopped
     environment:
       - RAILS_ENV=production
-      - RAILS_MASTER_KEY=e296d0b7c9997c18968abb26920231df
+      - RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
       - RAILS_SERVE_STATIC_FILES=true
       - RAILS_LOG_TO_STDOUT=true
       - DISABLE_DATABASE_ENVIRONMENT_CHECK=1

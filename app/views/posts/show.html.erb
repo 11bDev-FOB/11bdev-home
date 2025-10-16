@@ -1,0 +1,41 @@
+<!-- Blog Post Detail: Tales from the Foxhole - Minimal Style -->
+<section class="py-20 bg-vintage-cream min-h-screen">
+  <div class="max-w-2xl mx-auto px-4 sm:px-6">
+    <div class="mb-8">
+      <%= link_to "← Back to Tales from the Foxhole", posts_path, class: "text-olive hover:text-dark-olive font-semibold transition-colors" %>
+    </div>
+    <article class="border-b border-gray-300 pb-12">
+      <h1 class="text-5xl font-bold text-dark-olive mb-4 leading-tight"><%= @post.title %></h1>
+      <div class="text-sm text-gray-500 mb-8">
+        <%= @post.published_at&.strftime('%B %d, %Y') %>
+        <% if @post.tag_list.any? %>
+          <% @post.tag_list.each do |tag| %>
+            <span class="ml-2 text-olive">#<%= tag %></span>
+          <% end %>
+        <% end %>
+      </div>
+      <% if @post.featured_image.attached? %>
+        <div class="mb-8">
+          <%= image_tag @post.featured_image, class: "w-full h-auto" %>
+        </div>
+      <% end %>
+      <div class="prose prose-lg prose-olive max-w-none text-medium-gray leading-relaxed">
+        <%= markdown(@post.content) %>
+      </div>
+      
+      <!-- Reply by Email -->
+      <div class="mt-12 pt-8 border-t border-gray-200">
+        <p class="text-gray-600">
+          Have thoughts on this post? 
+          <a href="#" 
+             class="text-olive hover:text-dark-olive font-semibold transition-colors"
+             data-user="tim"
+             data-domain="11b.dev"
+             onclick="event.preventDefault(); window.location.href='mailto:'+this.getAttribute('data-user')+'@'+this.getAttribute('data-domain')+'?subject=Re: <%= CGI.escape(@post.title) %>';">
+            Reply by email
+          </a>
+        </p>
+      </div>
+    </article>
+  </div>
+</section>

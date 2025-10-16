@@ -1,0 +1,66 @@
+<!-- Admin New Post -->
+<section class="py-16 bg-vintage-cream min-h-screen">
+  <div class="container-11b max-w-2xl mx-auto">
+    <%= render 'admin/nav' %>
+    <h1 class="text-3xl font-bold text-dark-olive mb-8">New Blog Post</h1>
+    <%= form_with model: @post, url: admin_posts_path, local: true, class: "space-y-6" do |form| %>
+      <div>
+        <%= form.label :title, "Title", class: "block font-semibold text-dark-olive mb-2" %>
+        <%= form.text_field :title, class: "w-full px-4 py-3 border rounded-lg" %>
+      </div>
+      <div>
+        <%= form.label :content, "Content", class: "block font-semibold text-dark-olive mb-2" %>
+        <div data-controller="markdown-preview" class="border-2 border-olive/30 rounded-lg overflow-hidden">
+          <!-- Tabs -->
+          <div class="flex border-b border-gray-200 bg-gray-50">
+            <button type="button" 
+                    class="px-6 py-3 font-semibold border-b-2 border-olive text-dark-olive bg-white transition"
+                    data-action="click->markdown-preview#showWrite"
+                    data-markdown-preview-target="writeTab">
+              Write
+            </button>
+            <button type="button" 
+                    class="px-6 py-3 font-semibold border-b-2 border-transparent text-gray-500 hover:text-gray-700 transition"
+                    data-action="click->markdown-preview#showPreview"
+                    data-markdown-preview-target="previewTab">
+              Preview
+            </button>
+          </div>
+          
+          <!-- Write Pane -->
+          <div data-markdown-preview-target="writePane">
+            <%= form.text_area :content, rows: 20, class: "w-full px-4 py-3 font-mono text-sm leading-relaxed border-0 focus:outline-none focus:ring-0", data: { "markdown-preview-target": "input" } %>
+          </div>
+          
+          <!-- Preview Pane -->
+          <div data-markdown-preview-target="previewPane" class="hidden">
+            <div class="prose prose-lg prose-olive max-w-none p-6 min-h-[500px]" data-markdown-preview-target="preview"></div>
+          </div>
+        </div>
+        <small class="text-gray-600 mt-2 block">Write in <strong>Markdown</strong>. Use the Preview tab to see formatted output.</small>
+      </div>
+      <div>
+        <%= form.label :tag_list, "Tags", class: "block font-semibold text-dark-olive mb-2" %>
+        <%= form.text_field :tag_list, placeholder: "e.g. rails, tutorial, web-development", class: "w-full px-4 py-3 border rounded-lg" %>
+        <small class="text-gray-600">Separate tags with commas</small>
+      </div>
+      <div>
+        <%= form.label :published_at, "Publish Date", class: "block font-semibold text-dark-olive mb-2" %>
+        <%= form.datetime_local_field :published_at, class: "w-full px-4 py-3 border rounded-lg" %>
+        <small class="text-gray-600">Leave empty to use current date/time when published</small>
+      </div>
+      <div>
+        <%= form.label :featured_image, "Cover Image", class: "block font-semibold text-dark-olive mb-2" %>
+        <%= form.file_field :featured_image, class: "w-full px-4 py-3 border rounded-lg" %>
+      </div>
+      <div>
+        <%= form.label :published, "Publish Now?", class: "block font-semibold text-dark-olive mb-2" %>
+        <%= form.check_box :published %>
+      </div>
+      <div>
+        <%= form.submit "Save Post", class: "btn-military" %>
+        <%= link_to "Cancel", admin_posts_path, class: "btn-hippie ml-4" %>
+      </div>
+    <% end %>
+  </div>
+</section>

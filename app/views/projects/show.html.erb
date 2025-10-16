@@ -1,4 +1,56 @@
-<div>
-  <h1 class="font-bold text-4xl">Projects#show</h1>
-  <p>Find me in app/views/projects/show.html.erb</p>
-</div>
+<!-- Project Detail Page -->
+<section class="py-20 bg-vintage-cream">
+  <div class="container-11b">
+    <div class="mb-8">
+      <%= link_to "← Back to Products", projects_path, class: "text-muted-blue hover:text-olive font-semibold" %>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-12 items-start">
+      <!-- Visual -->
+      <div>
+        <div class="aspect-video bg-light-tan rounded-lg flex items-center justify-center overflow-hidden">
+          <% if @project.featured_image.attached? %>
+            <%= image_tag @project.featured_image, alt: @project.title, class: "w-full h-full object-cover" %>
+          <% else %>
+            <div class="text-5xl font-bold text-dark-olive">
+              <%= @project.title.first(2).upcase %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div>
+        <h1 class="text-5xl font-bold text-dark-olive mb-4"><%= @project.title %></h1>
+        
+        <% if @project.tech_stack.present? %>
+          <div class="flex flex-wrap gap-2 mb-6">
+            <% @project.tech_stack.split(',').each do |tech| %>
+              <span class="px-3 py-1 bg-light-tan text-dark-olive text-sm rounded-full border">
+                <%= tech.strip %>
+              </span>
+            <% end %>
+          </div>
+        <% end %>
+
+        <div class="prose prose-olive max-w-none text-medium-gray mb-6">
+          <p><%= simple_format(@project.description) %></p>
+        </div>
+
+        <% if @project.client_outcome.present? %>
+          <div class="p-4 bg-light-tan rounded-lg border mb-6">
+            <h2 class="text-lg font-semibold text-dark-olive mb-2">Outcome</h2>
+            <p class="text-medium-gray"><%= @project.client_outcome %></p>
+          </div>
+        <% end %>
+
+        <div class="flex gap-3">
+          <% if @project.project_url.present? %>
+            <%= link_to "Visit #{\@project.title}", @project.project_url, class: "btn-military", target: "_blank", rel: "noopener noreferrer" %>
+          <% end %>
+          <%= link_to "Back", projects_path, class: "btn-hippie" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

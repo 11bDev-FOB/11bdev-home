@@ -1,0 +1,135 @@
+<!-- Admin Dashboard -->
+<section class="py-16 bg-vintage-cream min-h-screen">
+  <div class="container-11b max-w-6xl mx-auto">
+    <%= render 'admin/nav' %>
+    <h1 class="text-4xl font-bold text-dark-olive mb-8">Admin Dashboard</h1>
+    
+    <!-- Quick Actions -->
+    <div class="grid md:grid-cols-2 gap-6 mb-12">
+      <%= link_to admin_posts_path, class: "block bg-white rounded-lg shadow p-8 border-l-4 border-olive hover:shadow-lg transition" do %>
+        <h2 class="text-2xl font-bold text-dark-olive mb-2">Manage Blog Posts</h2>
+        <p class="text-gray-600 mb-4">Create, edit, and publish blog posts</p>
+        <div class="flex gap-4 text-sm">
+          <span class="text-olive font-semibold"><%= @published_posts_count %> Published</span>
+          <span class="text-gray-500"><%= @draft_posts_count %> Drafts</span>
+        </div>
+      <% end %>
+      
+      <%= link_to admin_projects_path, class: "block bg-white rounded-lg shadow p-8 border-l-4 border-muted-blue hover:shadow-lg transition" do %>
+        <h2 class="text-2xl font-bold text-dark-olive mb-2">Manage Projects</h2>
+        <p class="text-gray-600 mb-4">Create, edit, and showcase projects</p>
+        <div class="flex gap-4 text-sm">
+          <span class="text-muted-blue font-semibold"><%= @published_projects_count %> Published</span>
+          <span class="text-gray-500"><%= @draft_projects_count %> Drafts</span>
+          <span class="text-olive"><%= @open_source_projects_count %> Open Source</span>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="grid md:grid-cols-4 gap-6 mb-12">
+      <div class="bg-white rounded-lg shadow p-6">
+        <div class="text-3xl font-bold text-olive mb-2"><%= @posts_count %></div>
+        <div class="text-sm text-gray-600">Total Posts</div>
+      </div>
+      
+      <div class="bg-white rounded-lg shadow p-6">
+        <div class="text-3xl font-bold text-muted-blue mb-2"><%= @projects_count %></div>
+        <div class="text-sm text-gray-600">Total Projects</div>
+      </div>
+      
+      <div class="bg-white rounded-lg shadow p-6">
+        <div class="text-3xl font-bold text-dark-olive mb-2"><%= @open_source_projects_count %></div>
+        <div class="text-sm text-gray-600">Open Source Projects</div>
+      </div>
+      
+      <div class="bg-white rounded-lg shadow p-6">
+        <div class="text-3xl font-bold text-gray-700 mb-2"><%= @database_size %></div>
+        <div class="text-sm text-gray-600">Database Size</div>
+      </div>
+    </div>
+
+    <!-- System Info -->
+    <div class="bg-white rounded-lg shadow p-8 mb-12">
+      <h2 class="text-2xl font-bold text-dark-olive mb-6">System Information</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div>
+          <h3 class="font-semibold text-gray-700 mb-2">Server</h3>
+          <ul class="space-y-2 text-sm text-gray-600">
+            <li><span class="font-medium">Ruby:</span> <%= @ruby_version %></li>
+            <li><span class="font-medium">Rails:</span> <%= @rails_version %></li>
+            <li><span class="font-medium">Environment:</span> <%= Rails.env %></li>
+            <li><span class="font-medium">Uptime:</span> <%= @uptime %></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="font-semibold text-gray-700 mb-2">Resources</h3>
+          <ul class="space-y-2 text-sm text-gray-600">
+            <li><span class="font-medium">Database:</span> SQLite</li>
+            <li><span class="font-medium">Cache:</span> Solid Cache</li>
+            <li><span class="font-medium">Queue:</span> Solid Queue</li>
+            <li><span class="font-medium">Storage:</span> Active Storage</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="bg-white rounded-lg shadow p-8">
+        <h2 class="text-xl font-bold text-dark-olive mb-4">Recent Posts</h2>
+        <ul class="space-y-3">
+          <% @recent_posts.each do |post| %>
+            <li class="border-b pb-2">
+              <div class="font-semibold text-sm"><%= post.title %></div>
+              <div class="text-xs text-gray-500">
+                <%= post.published? ? "Published" : "Draft" %> &bull; 
+                Updated <%= time_ago_in_words(post.updated_at) %> ago
+              </div>
+            </li>
+          <% end %>
+        </ul>
+        <% if @recent_posts.empty? %>
+          <p class="text-gray-500 text-sm">No posts yet. Create your first post!</p>
+        <% end %>
+      </div>
+      
+      <div class="bg-white rounded-lg shadow p-8">
+        <h2 class="text-xl font-bold text-dark-olive mb-4">Recent Projects</h2>
+        <ul class="space-y-3">
+          <% @recent_projects.each do |project| %>
+            <li class="border-b pb-2">
+              <div class="font-semibold text-sm">
+                <%= project.title %>
+                <% if project.open_source %>
+                  <span class="ml-2 px-2 py-1 bg-olive text-white text-xs rounded">Open Source</span>
+                <% end %>
+              </div>
+              <div class="text-xs text-gray-500">
+                <%= project.published? ? "Published" : "Draft" %> &bull; 
+                Updated <%= time_ago_in_words(project.updated_at) %> ago
+              </div>
+            </li>
+          <% end %>
+        </ul>
+        <% if @recent_projects.empty? %>
+          <p class="text-gray-500 text-sm">No projects yet. Create your first project!</p>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Analytics Placeholder -->
+    <div class="bg-white rounded-lg shadow p-8 mt-6 border-2 border-dashed border-gray-300">
+      <h2 class="text-xl font-bold text-dark-olive mb-4">Analytics & Telemetry</h2>
+      <p class="text-gray-600 mb-4">To track visitors, page views, and geographic data, consider integrating:</p>
+      <ul class="list-disc list-inside text-sm text-gray-600 space-y-2">
+        <li><strong>Plausible Analytics</strong> - Privacy-friendly, lightweight analytics</li>
+        <li><strong>Fathom Analytics</strong> - Simple, privacy-focused website analytics</li>
+        <li><strong>Self-hosted Matomo</strong> - Full-featured analytics you control</li>
+        <li><strong>Ahoy gem</strong> - First-party analytics for Rails apps</li>
+      </ul>
+      <p class="text-sm text-gray-500 mt-4">Once integrated, visitor stats, geographic data, and resource usage will appear here.</p>
+    </div>
+  </div>
+</section>

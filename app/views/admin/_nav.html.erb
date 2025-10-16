@@ -1,0 +1,18 @@
+<nav class="mb-8">
+  <div class="bg-white border rounded-lg shadow p-3">
+    <ul class="flex flex-wrap gap-2 text-sm">
+      <li>
+        <%= link_to "Dashboard", admin_root_path, class: "inline-block px-3 py-1 rounded #{current_page?(admin_root_path) ? 'bg-olive text-white' : 'bg-light-tan text-dark-olive hover:bg-olive hover:text-white'}" %>
+      </li>
+      <li>
+        <%= link_to "Posts", admin_posts_path, class: "inline-block px-3 py-1 rounded #{controller_path == 'admin/posts' ? 'bg-olive text-white' : 'bg-light-tan text-dark-olive hover:bg-olive hover:text-white'}" %>
+      </li>
+      <li>
+        <%= link_to "Projects", admin_projects_path, class: "inline-block px-3 py-1 rounded #{controller_path == 'admin/projects' ? 'bg-olive text-white' : 'bg-light-tan text-dark-olive hover:bg-olive hover:text-white'}" %>
+      </li>
+      <li class="ml-auto">
+        <%= link_to "View site", root_path, class: "inline-block px-3 py-1 rounded bg-muted-blue text-white hover:bg-opacity-90" %>
+      </li>
+    </ul>
+  </div>
+  </nav>

@@ -63,7 +63,7 @@ Rails.application.configure do
   # Only use :id for inspections in production.
   config.active_record.attributes_for_inspect = [ :id ]
 
-  # Email configuration for contact form
+  # Email configuration (not required when using Letterbird-only contact)
   # Enable delivery errors to be shown
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.perform_deliveries = true
@@ -86,13 +86,6 @@ Rails.application.configure do
       password:             ENV['SMTP_PASSWORD'],
       authentication:       ENV['SMTP_AUTH']&.to_sym || :plain,
       enable_starttls_auto: true
-    }
-  else
-    # Fallback to sendmail if available (basic server setup)
-    config.action_mailer.delivery_method = :sendmail
-    config.action_mailer.sendmail_settings = {
-      location: '/usr/sbin/sendmail',
-      arguments: '-i'
     }
   end
 

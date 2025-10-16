@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_01_002815) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_16_022226) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -68,6 +68,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_01_002815) do
     t.boolean "published"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "tags"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -78,6 +79,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_01_002815) do
     t.boolean "featured"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "project_url"
+    t.boolean "published", default: true
+    t.boolean "open_source"
   end
 
   create_table "services", force: :cascade do |t|

@@ -79,3 +79,7 @@ gem "bech32"
 # For Nostr WebSocket relay connections
 gem "faye-websocket"
 gem "eventmachine"
+
+# Markdown rendering
+gem "kramdown", "~> 2.4"
+gem "kramdown-parser-gfm", "~> 1.1"
