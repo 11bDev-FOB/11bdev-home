@@ -1,50 +1,87 @@
-class Api::PostsController < ApplicationController
-  skip_before_action :verify_authenticity_token
-
+class Api::PostsController < Api::BaseController
+  # GET /api/posts
+  # Returns all published posts
   def index
-    posts = Post.published.order(created_at: :desc)
-    render json: posts.as_json(only: [:id, :title, :author, :slug, :published, :created_at, :updated_at], methods: [:featured_image_url, :excerpt])
+    posts = Post.published.order(published_at: :desc)
+    render_success(
+      posts.as_json(
+        only: [:id, :title, :author, :slug, :published, :published_at, :created_at, :updated_at],
+        methods: [:tag_list]
+      )
+    )
   end
 
+  # GET /api/posts/:id
+  # Returns a single post by slug or ID
   def show
-    post = Post.published.find_by(slug: params[:id])
+    post = Post.published.find_by(slug: params[:id]) || Post.published.find_by(id: params[:id])
+    
     if post
-      render json: post.as_json(only: [:id, :title, :author, :slug, :published, :created_at, :updated_at], methods: [:featured_image_url, :content_html])
+      render_success(
+        post.as_json(
+          only: [:id, :title, :author, :slug, :content, :published, :published_at, :created_at, :updated_at],
+          methods: [:tag_list]
+        )
+      )
     else
-      render json: { error: "Not found" }, status: :not_found
+      render_error("Post not found", :not_found)
     end
   end
 
+  # POST /api/posts
+  # Creates a new post (requires authentication)
   def create
     post = Post.new(post_params)
+    
     if post.save
-      render json: post, status: :created
+      render_success(
+        post.as_json(
+          only: [:id, :title, :author, :slug, :content, :published, :published_at, :created_at, :updated_at],
+          methods: [:tag_list]
+        ),
+        :created
+      )
     else
-      render json: { errors: post.errors.full_messages }, status: :unprocessable_entity
+      render_errors(post.errors.full_messages)
     end
   end
 
+  # PATCH/PUT /api/posts/:id
+  # Updates an existing post (requires authentication)
   def update
-    post = Post.find_by(id: params[:id])
-    if post&.update(post_params)
-      render json: post
+    post = Post.find_by(id: params[:id]) || Post.find_by(slug: params[:id])
+    
+    if post.nil?
+      render_error("Post not found", :not_found)
+    elsif post.update(post_params)
+      render_success(
+        post.as_json(
+          only: [:id, :title, :author, :slug, :content, :published, :published_at, :created_at, :updated_at],
+          methods: [:tag_list]
+        )
+      )
     else
-      render json: { errors: post&.errors&.full_messages || ["Not found"] }, status: :unprocessable_entity
+      render_errors(post.errors.full_messages)
     end
   end
 
+  # DELETE /api/posts/:id
+  # Deletes a post (requires authentication)
   def destroy
-    post = Post.find_by(id: params[:id])
-    if post&.destroy
-      render json: { success: true }
+    post = Post.find_by(id: params[:id]) || Post.find_by(slug: params[:id])
+    
+    if post.nil?
+      render_error("Post not found", :not_found)
+    elsif post.destroy
+      render_success
     else
-      render json: { error: "Not found" }, status: :not_found
+      render_errors(post.errors.full_messages)
     end
   end
 
   private
 
   def post_params
-    params.require(:post).permit(:title, :author, :content, :featured_image, :published)
+    params.require(:post).permit(:title, :author, :content, :published, :published_at, :tag_list)
   end
 end

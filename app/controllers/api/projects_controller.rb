@@ -1,50 +1,83 @@
-class Api::ProjectsController < ApplicationController
-  skip_before_action :verify_authenticity_token
-
+class Api::ProjectsController < Api::BaseController
+  # GET /api/projects
+  # Returns all published projects
   def index
-    projects = Project.published.order(created_at: :desc)
-    render json: projects.as_json(only: [:id, :name, :slug, :published, :open_source, :created_at, :updated_at], methods: [:featured_image_url, :excerpt])
+    projects = Project.published.order(updated_at: :desc)
+    render_success(
+      projects.as_json(
+        only: [:id, :title, :slug, :description, :tech_stack, :project_url, :published, :open_source, :featured, :created_at, :updated_at]
+      )
+    )
   end
 
+  # GET /api/projects/:id
+  # Returns a single project by slug or ID
   def show
-    project = Project.published.find_by(slug: params[:id])
+    project = Project.published.find_by(slug: params[:id]) || Project.published.find_by(id: params[:id])
+    
     if project
-      render json: project.as_json(only: [:id, :name, :slug, :published, :open_source, :created_at, :updated_at], methods: [:featured_image_url, :description_html])
+      render_success(
+        project.as_json(
+          only: [:id, :title, :slug, :description, :tech_stack, :project_url, :published, :open_source, :featured, :created_at, :updated_at]
+        )
+      )
     else
-      render json: { error: "Not found" }, status: :not_found
+      render_error("Project not found", :not_found)
     end
   end
 
+  # POST /api/projects
+  # Creates a new project (requires authentication)
   def create
     project = Project.new(project_params)
+    
     if project.save
-      render json: project, status: :created
+      render_success(
+        project.as_json(
+          only: [:id, :title, :slug, :description, :tech_stack, :project_url, :published, :open_source, :featured, :created_at, :updated_at]
+        ),
+        :created
+      )
     else
-      render json: { errors: project.errors.full_messages }, status: :unprocessable_entity
+      render_errors(project.errors.full_messages)
     end
   end
 
+  # PATCH/PUT /api/projects/:id
+  # Updates an existing project (requires authentication)
   def update
-    project = Project.find_by(id: params[:id])
-    if project&.update(project_params)
-      render json: project
+    project = Project.find_by(id: params[:id]) || Project.find_by(slug: params[:id])
+    
+    if project.nil?
+      render_error("Project not found", :not_found)
+    elsif project.update(project_params)
+      render_success(
+        project.as_json(
+          only: [:id, :title, :slug, :description, :tech_stack, :project_url, :published, :open_source, :featured, :created_at, :updated_at]
+        )
+      )
     else
-      render json: { errors: project&.errors&.full_messages || ["Not found"] }, status: :unprocessable_entity
+      render_errors(project.errors.full_messages)
     end
   end
 
+  # DELETE /api/projects/:id
+  # Deletes a project (requires authentication)
   def destroy
-    project = Project.find_by(id: params[:id])
-    if project&.destroy
-      render json: { success: true }
+    project = Project.find_by(id: params[:id]) || Project.find_by(slug: params[:id])
+    
+    if project.nil?
+      render_error("Project not found", :not_found)
+    elsif project.destroy
+      render_success
     else
-      render json: { error: "Not found" }, status: :not_found
+      render_errors(project.errors.full_messages)
     end
   end
 
   private
 
   def project_params
-    params.require(:project).permit(:name, :description, :featured_image, :published, :open_source)
+    params.require(:project).permit(:title, :description, :tech_stack, :project_url, :published, :open_source, :featured)
   end
 end

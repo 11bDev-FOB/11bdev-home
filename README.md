@@ -20,11 +20,13 @@
 
 - **🎨 Military/Hippie Theme**: Custom olive & desert color palette with subtle tie-dye elements
 - **📱 Fully Responsive**: Mobile-first design that works on all devices
-- **🌙 Dark Mode**: Toggle between light and dark themes with localStorage persistence
+- **📝 Blog System**: Markdown-powered blog with GFM support and tagging
 - **⚡ Modern Stack**: Rails 8.0.3 with Hotwire, Tailwind CSS, and SQLite
 - **🎯 Project Showcase**: Dynamic project gallery with featured items
+- **� REST API**: Full-featured API for posts and projects (read-only public, write with auth)
+- **🔒 Admin Panel**: Secure admin interface with HTTP Basic Authentication
+- **🐳 Docker Ready**: Complete Docker setup with Caddy reverse proxy
 - **💬 Contact**: Letterbird embedded form
-- **🔒 Production Ready**: Docker support, CI/CD with GitHub Actions
 
 ## 🛠️ Tech Stack
 
@@ -53,18 +55,41 @@ rails server
 
 Visit `http://localhost:3000` to see the site in action!
 
-## 📁 Project Structure
+## � API Access
+
+The site includes a full REST API for programmatic access to posts and projects.
+
+**Public endpoints** (no auth required):
+- `GET /api/posts` - List all published posts
+- `GET /api/posts/:id` - Get a single post
+- `GET /api/projects` - List all published projects
+- `GET /api/projects/:id` - Get a single project
+
+**Protected endpoints** (HTTP Basic Auth required):
+- `POST /api/posts` - Create a post
+- `PATCH /api/posts/:id` - Update a post
+- `DELETE /api/posts/:id` - Delete a post
+- `POST /api/projects` - Create a project
+- `PATCH /api/projects/:id` - Update a project
+- `DELETE /api/projects/:id` - Delete a project
+
+📚 **Full API documentation**: See [API_DOCUMENTATION.md](API_DOCUMENTATION.md)
+
+## �📁 Project Structure
 
 ```
 app/
-├── controllers/     # Request handling
-├── models/         # Data models (Project, Testimonial, Service)
-├── views/          # HTML templates with ERB
-└── assets/         # Stylesheets and images
+├── controllers/
+│   ├── admin/           # Admin panel controllers
+│   ├── api/             # REST API controllers
+│   └── pages_controller.rb
+├── models/              # Data models (Post, Project)
+├── views/               # HTML templates with ERB
+└── assets/              # Stylesheets and images
 
 config/
-├── routes.rb       # URL routing
-└── database.yml    # Database configuration
+├── routes.rb            # URL routing
+└── database.yml         # Database configuration
 ```
 
 ## 🎯 Projects Featured
@@ -88,6 +113,21 @@ The site uses CSS custom properties for easy theming:
 
 ## 🚀 Deployment
 
+### Docker (Recommended)
+
+The easiest way to deploy is using Docker with Caddy:
+
+```bash
+# Quick deploy
+./deploy.sh
+
+# Or manually
+docker compose up -d
+docker compose exec app bin/rails db:migrate
+```
+
+See [DOCKER_DEPLOYMENT.md](DOCKER_DEPLOYMENT.md) for comprehensive Docker deployment guide.
+
 ### Railway
 ```bash
 # Connect to Railway
@@ -96,18 +136,32 @@ railway init
 railway up
 ```
 
-### Docker
-```bash
-# Build and run
-docker build -t eleven-b-dev .
-docker run -p 3000:3000 eleven-b-dev
-```
-
 ### Kamal (included)
 ```bash
 # Configure deploy.yml and deploy
 kamal setup
 kamal deploy
+```
+
+## 🐳 Docker Setup
+
+The application includes a complete Docker setup with:
+- **App Container**: Rails 8 application with SQLite
+- **Caddy Container**: Reverse proxy with automatic SSL
+- **Volumes**: Persistent storage for database, uploads, and logs
+- **Health Checks**: Automatic monitoring and recovery
+
+Quick start:
+```bash
+# 1. Configure environment
+cp .env.example .env
+nano .env  # Set RAILS_MASTER_KEY and credentials
+
+# 2. Deploy
+./deploy.sh
+
+# 3. Access
+open http://localhost
 ```
 
 ## 🤝 Contributing
