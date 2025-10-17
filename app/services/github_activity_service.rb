@@ -2,7 +2,9 @@ class GithubActivityService
   include HTTParty
   base_uri 'https://api.github.com'
   
-  ORG_NAME = '11bDev-FOB'
+  # Change this to match your account type
+  ACCOUNT_NAME = '11bDev'
+  ACCOUNT_TYPE = 'user' # 'user' or 'org'
   
   def initialize(token: nil)
     @token = token || ENV['GITHUB_TOKEN']
@@ -31,8 +33,9 @@ class GithubActivityService
   
   def fetch_org_events(days)
     since_date = days.days.ago.iso8601
+    endpoint = ACCOUNT_TYPE == 'org' ? "/orgs/#{ACCOUNT_NAME}/events" : "/users/#{ACCOUNT_NAME}/events"
     response = self.class.get(
-      "/orgs/#{ORG_NAME}/events",
+      endpoint,
       headers: @headers,
       query: { per_page: 50 }
     )
@@ -42,13 +45,14 @@ class GithubActivityService
     events = response.parsed_response
     events.select { |e| Time.parse(e['created_at']) >= days.days.ago }
   rescue => e
-    Rails.logger.error("Error fetching GitHub org events: #{e.message}")
+    Rails.logger.error("Error fetching GitHub events: #{e.message}")
     []
   end
   
   def fetch_active_repos(days)
+    endpoint = ACCOUNT_TYPE == 'org' ? "/orgs/#{ACCOUNT_NAME}/repos" : "/users/#{ACCOUNT_NAME}/repos"
     response = self.class.get(
-      "/orgs/#{ORG_NAME}/repos",
+      endpoint,
       headers: @headers,
       query: { per_page: 30, sort: 'pushed', direction: 'desc' }
     )

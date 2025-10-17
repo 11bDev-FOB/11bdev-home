@@ -33,8 +33,62 @@
           </div>
         <% end %>
 
-        <div class="prose prose-olive max-w-none text-medium-gray mb-6">
-          <p><%= simple_format(@project.description) %></p>
+        <style>
+          .prose-project p { 
+            font-size: 1.125rem;
+            line-height: 1.75;
+            color: #2d3d24;
+            margin-bottom: 1rem;
+          }
+          
+          .prose-project a {
+            color: #4682B4;
+            text-decoration: underline;
+            font-weight: 500;
+          }
+          
+          .prose-project a:hover {
+            color: #4B5E40;
+          }
+          
+          .prose-project strong { 
+            font-weight: 600;
+            color: #3A4A32;
+          }
+          
+          .prose-project ul, .prose-project ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+          }
+          
+          .prose-project li {
+            margin-bottom: 0.5rem;
+          }
+          
+          /* Dark mode styles */
+          body.dark-mode .prose-project p,
+          html.dark-mode .prose-project p {
+            color: #d1d5db !important;
+          }
+          
+          body.dark-mode .prose-project a,
+          html.dark-mode .prose-project a {
+            color: #93c5fd !important;
+          }
+          
+          body.dark-mode .prose-project a:hover,
+          html.dark-mode .prose-project a:hover {
+            color: #b8d49f !important;
+          }
+          
+          body.dark-mode .prose-project strong,
+          html.dark-mode .prose-project strong {
+            color: #b8d49f !important;
+          }
+        </style>
+
+        <div class="prose-project max-w-none mb-6">
+          <%= raw @project.description_html %>
         </div>
 
         <% if @project.client_outcome.present? %>
@@ -46,7 +100,7 @@
 
         <div class="flex gap-3">
           <% if @project.project_url.present? %>
-            <%= link_to "Visit #{\@project.title}", @project.project_url, class: "btn-military", target: "_blank", rel: "noopener noreferrer" %>
+            <%= link_to "Visit #{@project.title}", @project.project_url, class: "btn-military", target: "_blank", rel: "noopener noreferrer" %>
           <% end %>
           <%= link_to "Back", projects_path, class: "btn-hippie" %>
         </div>

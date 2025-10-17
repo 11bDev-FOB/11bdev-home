@@ -92,9 +92,10 @@ Rails.application.configure do
   # Enable DNS rebinding protection and other `Host` header attacks.
   config.hosts = [
     "11b.dev",           # Allow requests from 11b.dev
-    "www.11b.dev",
+    "www.11b.dev",       # Allow requests from www.11b.dev
+    "localhost",         # Allow healthcheck from localhost
     "app",               # Allow requests from Docker service name
-    "rails_app"          # Allow requests from nginx upstream name        # Allow requests from www.11b.dev if needed
+    "rails_app"          # Allow requests from nginx upstream name
   ]
 
 end

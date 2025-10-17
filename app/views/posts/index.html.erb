@@ -4,34 +4,43 @@
     <!-- Header -->
     <div class="text-center mb-20">
       <h1 class="text-5xl font-bold text-olive mb-4">Tales From the Foxhole</h1>
-      <p class="text-xl text-gray-400">News, thoughts, and babble from behind the lines at 11bDEV.</p>
+      <p class="text-xl text-medium-gray">News, thoughts, and babble from behind the lines at 11bDEV.</p>
     </div>
     
     <% if @posts.any? %>
       <!-- Year Groups -->
       <% @posts.group_by { |p| p.published_at&.year }.each do |year, year_posts| %>
-        <div class="mb-12">
-          <h2 class="text-4xl font-bold text-white mb-6 pl-0"><%= year %></h2>
+        <div class="mb-16">
+          <h2 class="text-3xl font-bold text-dark-olive mb-8"><%= year %></h2>
           
-          <div class="space-y-2" style="margin-left: 3rem;">
+          <div class="space-y-6">
             <% year_posts.each do |post| %>
-              <div class="flex items-center gap-4">
-                <!-- Date (left, fixed width) -->
-                <div class="text-gray-400 text-right w-40 flex-shrink-0">
-                  <%= post.published_at&.strftime('%-d %b') %>
+              <div class="flex items-center gap-6 group">
+                <!-- Date (left-aligned, fixed width) -->
+                <div class="text-medium-gray text-sm font-medium w-24 flex-shrink-0">
+                  <%= post.published_at&.strftime('%b %-d') %>
                 </div>
                 
-                <!-- Title (center, flexible with padding) -->
-                <div class="flex-1 text-center px-6">
-                  <%= link_to post.title, post_path(post), class: "text-gray-300 hover:text-white transition-colors" %>
-                </div>
-                
-                <!-- Tags (right, fixed width matching left) -->
-                <div class="flex gap-2 justify-end w-40 flex-shrink-0">
+                <!-- Title and Tags Dropdown (flexible, left-aligned) -->
+                <div class="flex-1 min-w-0 flex items-center gap-3">
+                  <%= link_to post.title, post_path(post), class: "text-lg font-semibold text-dark-olive hover:text-olive transition-colors flex-shrink truncate" %>
+                  
+                  <!-- Tags Dropdown -->
                   <% if post.tag_list.any? %>
-                    <% post.tag_list.each do |tag| %>
-                      <span class="text-gray-500">#<%= tag %></span>
-                    <% end %>
+                    <div class="relative flex-shrink-0">
+                      <button type="button" class="tags-dropdown-btn text-medium-gray hover:text-olive transition-colors p-1 rounded" data-post-id="<%= post.id %>">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"/>
+                        </svg>
+                      </button>
+                      <div class="tags-dropdown hidden absolute left-0 mt-2 backdrop-blur-sm border rounded-lg shadow-md p-3 z-10 whitespace-nowrap blog-tags-dropdown" data-post-id="<%= post.id %>">
+                        <div class="flex flex-wrap gap-2">
+                          <% post.tag_list.each do |tag| %>
+                            <span class="text-xs blog-tag-pill px-2 py-1 rounded">#<%= tag %></span>
+                          <% end %>
+                        </div>
+                      </div>
+                    </div>
                   <% end %>
                 </div>
               </div>
@@ -40,7 +49,64 @@
         </div>
       <% end %>
     <% else %>
-      <div class="text-center text-gray-500">No posts yet.</div>
+      <div class="text-center text-medium-gray">No posts yet.</div>
     <% end %>
   </div>
 </section>
+
+<style>
+  /* Blog list tags styling - Light mode */
+  .blog-tags-dropdown {
+    background-color: rgba(245, 240, 232, 0.95);
+    border-color: rgba(75, 94, 64, 0.2);
+  }
+  
+  .blog-tag-pill {
+    background-color: rgba(210, 180, 140, 0.3);
+    color: #4A5568;
+  }
+  
+  /* Dark mode overrides */
+  body.dark-mode .blog-tags-dropdown,
+  html.dark-mode .blog-tags-dropdown {
+    background-color: rgba(58, 58, 58, 0.95);
+    border-color: rgba(107, 124, 90, 0.3);
+  }
+  
+  body.dark-mode .blog-tag-pill,
+  html.dark-mode .blog-tag-pill {
+    background-color: rgba(107, 124, 90, 0.3);
+    color: #a0aec0;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Handle tags dropdown toggle
+    document.querySelectorAll('.tags-dropdown-btn').forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const postId = this.dataset.postId;
+        const dropdown = document.querySelector(`.tags-dropdown[data-post-id="${postId}"]`);
+        
+        // Close all other dropdowns
+        document.querySelectorAll('.tags-dropdown').forEach(d => {
+          if (d !== dropdown) d.classList.add('hidden');
+        });
+        
+        // Toggle current dropdown
+        dropdown.classList.toggle('hidden');
+      });
+    });
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.tags-dropdown-btn') && !e.target.closest('.tags-dropdown')) {
+        document.querySelectorAll('.tags-dropdown').forEach(dropdown => {
+          dropdown.classList.add('hidden');
+        });
+      }
+    });
+  });
+</script>

@@ -9,6 +9,8 @@ class Project < ApplicationRecord
   scope :featured, -> { where(featured: true) }
   scope :published, -> { where(published: true) }
 
+  default_scope { order(position: :asc) }
+
   def to_param
     "#{id}-#{title.parameterize}"
   end
@@ -22,6 +24,9 @@ class Project < ApplicationRecord
   end
 
   def description_html
-    description.to_s
+    return "" if description.blank?
+    renderer = Kramdown::Document.new(description.to_s, input: "GFM", hard_wrap: true)
+    html = renderer.to_html
+    ActionController::Base.helpers.sanitize(html, tags: %w[p br strong em a ul ol li h1 h2 h3 h4 h5 h6 blockquote code pre img], attributes: %w[href src alt title]).html_safe
   end
 end

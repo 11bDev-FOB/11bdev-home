@@ -2,7 +2,7 @@ class Admin::ProjectsController < Admin::BaseController
   before_action :set_project, only: [:edit, :update, :destroy]
 
   def index
-    @projects = Project.all.order(updated_at: :desc)
+    @projects = Project.unscoped.order(position: :asc)
   end
 
   def new
@@ -32,6 +32,13 @@ class Admin::ProjectsController < Admin::BaseController
   def destroy
     @project.destroy
     redirect_to admin_projects_path, notice: "Project deleted."
+  end
+
+  def reorder
+    params[:order].each_with_index do |id, index|
+      Project.where(id: id).update_all(position: index + 1)
+    end
+    head :ok
   end
 
   private

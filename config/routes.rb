@@ -28,7 +28,11 @@ Rails.application.routes.draw do
   namespace :admin do
     root "dashboard#index"
     resources :posts
-    resources :projects
+    resources :projects do
+      collection do
+        patch :reorder
+      end
+    end
   end
   
   # Blog (comes after admin to avoid route conflicts)

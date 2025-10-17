@@ -6,19 +6,34 @@
       <h1 class="text-4xl font-bold text-dark-olive">Manage Projects</h1>
       <%= link_to "New Project", new_admin_project_path, class: "btn-military" %>
     </div>
+    
+    <div class="mb-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+      <p class="text-sm text-blue-800">
+        <strong>Tip:</strong> Drag and drop rows to reorder projects. The order will be saved automatically.
+      </p>
+    </div>
+    
     <div class="bg-white rounded-lg shadow overflow-hidden">
       <table class="w-full">
         <thead>
           <tr class="bg-light-tan text-dark-olive border-b">
+            <th class="p-4 text-left font-semibold w-12">Order</th>
             <th class="p-4 text-left font-semibold">Title</th>
             <th class="p-4 text-left font-semibold">Status</th>
             <th class="p-4 text-left font-semibold">Updated</th>
             <th class="p-4 text-left font-semibold">Actions</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="sortable-projects">
           <% @projects.each do |project| %>
-            <tr class="border-b hover:bg-gray-50">
+            <tr class="border-b hover:bg-gray-50 draggable-row cursor-move" data-project-id="<%= project.id %>">
+              <td class="p-4">
+                <div class="flex items-center justify-center text-gray-400">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M7 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 2zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 14zm6-8a2 2 0 1 0-.001-4.001A2 2 0 0 0 13 6zm0 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 14z"></path>
+                  </svg>
+                </div>
+              </td>
               <td class="p-4">
                 <div class="font-semibold"><%= project.title %></div>
                 <% if project.open_source %>
@@ -55,5 +70,73 @@
         </div>
       <% end %>
     </div>
+    
+    <div id="save-indicator" class="hidden fixed bottom-4 right-4 px-4 py-2 rounded-lg shadow-lg">
+      <span class="text-white"></span>
+    </div>
   </div>
 </section>
+
+<!-- Sortable.js Library -->
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const sortableList = document.getElementById('sortable-projects');
+    
+    if (sortableList) {
+      new Sortable(sortableList, {
+        animation: 150,
+        handle: '.draggable-row',
+        ghostClass: 'bg-blue-100',
+        dragClass: 'opacity-50',
+        onEnd: function(evt) {
+          saveNewOrder();
+        }
+      });
+    }
+    
+    function saveNewOrder() {
+      const rows = document.querySelectorAll('.draggable-row');
+      const order = Array.from(rows).map(row => row.dataset.projectId);
+      
+      showIndicator('Saving order...', 'bg-blue-500');
+      
+      fetch('<%= reorder_admin_projects_path %>', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+        },
+        body: JSON.stringify({ order: order })
+      })
+      .then(response => {
+        if (response.ok) {
+          showIndicator('Order saved!', 'bg-green-500');
+          setTimeout(hideIndicator, 2000);
+        } else {
+          showIndicator('Error saving order', 'bg-red-500');
+          setTimeout(hideIndicator, 3000);
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        showIndicator('Network error', 'bg-red-500');
+        setTimeout(hideIndicator, 3000);
+      });
+    }
+    
+    function showIndicator(message, bgClass) {
+      const indicator = document.getElementById('save-indicator');
+      const textEl = indicator.querySelector('span');
+      
+      indicator.className = 'fixed bottom-4 right-4 px-4 py-2 rounded-lg shadow-lg ' + bgClass;
+      textEl.textContent = message;
+    }
+    
+    function hideIndicator() {
+      const indicator = document.getElementById('save-indicator');
+      indicator.classList.add('hidden');
+    }
+  });
+</script>

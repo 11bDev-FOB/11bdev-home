@@ -33,7 +33,10 @@ class Post < ApplicationRecord
   before_save :set_published_at
 
   def set_published_at
-    if will_save_change_to_published? && published && published_at.blank?
+    # Only auto-set published_at if:
+    # 1. Post is being published (published changed to true)
+    # 2. AND published_at is blank (not manually set)
+    if will_save_change_to_published? && published_changed? && published && published_at.blank?
       self.published_at = Time.current
     end
   end

@@ -24,7 +24,7 @@ class Admin::DashboardController < Admin::BaseController
   private
 
   def calculate_database_size
-    db_path = Rails.root.join('storage', "#{Rails.env}.sqlite3")
+    db_path = Rails.root.join('db', 'production.sqlite3')
     if File.exist?(db_path)
       size_in_bytes = File.size(db_path)
       "#{(size_in_bytes / 1024.0 / 1024.0).round(2)} MB"
@@ -34,9 +34,15 @@ class Admin::DashboardController < Admin::BaseController
   end
 
   def calculate_uptime
-    uptime_seconds = Time.current - Rails.application.config.booted_at rescue 0
-    hours = (uptime_seconds / 3600).to_i
-    minutes = ((uptime_seconds % 3600) / 60).to_i
-    "#{hours}h #{minutes}m"
+    boot_time_file = Rails.root.join('tmp', 'boot_time.txt')
+    if File.exist?(boot_time_file)
+      boot_time = Time.parse(File.read(boot_time_file).strip) rescue Time.current
+      uptime_seconds = Time.current - boot_time
+      hours = (uptime_seconds / 3600).to_i
+      minutes = ((uptime_seconds % 3600) / 60).to_i
+      "#{hours}h #{minutes}m"
+    else
+      "N/A"
+    end
   end
 end
