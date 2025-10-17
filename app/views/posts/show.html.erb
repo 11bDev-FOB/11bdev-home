@@ -1,3 +1,13 @@
+<% 
+  # Set meta tags for social sharing
+  set_meta_tags(
+    title: "#{@post.title} - Tales From the Foxhole",
+    description: @post.excerpt,
+    image: @post.featured_image.attached? ? url_for(@post.featured_image) : nil,
+    type: 'article'
+  )
+%>
+
 <!-- Blog Post Detail: Tales from the Foxhole - Minimal Style -->
 <section class="py-20 bg-vintage-cream min-h-screen">
   <div class="max-w-2xl mx-auto px-4 sm:px-6">

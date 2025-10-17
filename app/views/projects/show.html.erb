@@ -1,3 +1,13 @@
+<% 
+  # Set meta tags for social sharing
+  set_meta_tags(
+    title: "#{@project.title} - 11b Dev Projects",
+    description: @project.excerpt,
+    image: @project.featured_image.attached? ? url_for(@project.featured_image) : nil,
+    type: 'website'
+  )
+%>
+
 <!-- Project Detail Page -->
 <section class="py-20 bg-vintage-cream">
   <div class="container-11b">

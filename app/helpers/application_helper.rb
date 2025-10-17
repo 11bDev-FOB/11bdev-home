@@ -16,4 +16,12 @@ module ApplicationHelper
 			attributes: %w[href src alt title class id target rel]
 		)
 	end
+
+	# Helper to set page meta tags for social sharing
+	def set_meta_tags(title: nil, description: nil, image: nil, type: 'website')
+		@meta_title = title || "11b Dev - Battle-tested code, crafted with soul"
+		@meta_description = description || "11b Dev - Indie Ruby on Rails development shop founded by a retired Infantry NCO. We build apps tougher than a rucksack march, with the soul of a Dead jam."
+		@meta_image = image || "#{request.base_url}/icon.png"
+		@meta_type = type
+	end
 end
